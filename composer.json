@@ -1,0 +1,14 @@
+{
+	"name": "waterproof/is24-lead-import-for-wp-crm",
+	"description": "???",
+	"repositories":
+		[{"type":"package","package":{"name":"jmarceli/integration-cmb2-qtranslate","version":"0.1.1","source":{"url":"https://github.com/jmarceli/integration-cmb2-qtranslate.git","type":"git","reference":"0.1.1"}}}]
+		,
+	"require":
+		{"composer/installers":"*","webdevstudios/cmb2":"*","jmarceli/integration-cmb2-qtranslate":"*"}
+	,
+	"extra": {
+		"installer-paths": 
+			{"vendor/{$vendor}/{$name}":["webdevstudios/cmb2"]}
+	}
+}

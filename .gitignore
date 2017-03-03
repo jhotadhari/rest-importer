@@ -1,0 +1,39 @@
+
+# ignore all
+*/**/*
+/*
+
+
+# include some root files
+!.gitignore
+!Gruntfile.js
+!package.json
+!bower.json
+!.bowerrc
+!composer.json
+!composer.lock
+!readme.md
+
+# include dir src
+!/src
+!src/**/*
+
+# include dir dist/latest
+!/dist
+/dist/*
+!dist/latest
+!dist/latest/**/*
+
+# ignore certain file patterns
+_test*
+*/**/_test*
+_del*
+*/**/_del*
+*.marks
+*/**/*.marks
+*~
+*/**/*~
+#*#
+*/**/#*#
+
+
