@@ -118,7 +118,18 @@ module.exports = function(grunt){
 				
 			// assets
 				
-				
+				js: {
+					files: [
+							'<%= pkg.dirs.src %>/js/**/*.js',
+							'!**/dont_touch/**/*',
+							'<%= pattern.global_exclude %>',
+					],
+					tasks: [
+						'jshint',
+						'uglify:js',
+						'local_sync:<%= local_sync.wp_install %>'
+					]
+				},
 				
 				assets_styles: {
 					files: [
@@ -188,9 +199,40 @@ module.exports = function(grunt){
 		},
 	
 		/*	transcompile	*/
-		
-		
-		
+		jshint: {
+			all: [
+				'<%= pkg.dirs.src %>/js/**/*.js',
+				'!<%= pkg.dirs.src %>/js/**/noLint/**/*.js',
+				'!<%= pkg.dirs.src %>/js/**/dont_touch/**/*.js',
+				'<%= pattern.global_exclude %>',
+			]
+		},
+		uglify: {
+			options: {                      
+				compress: false,
+				mangle: false,
+				// beautify: true
+			},
+			
+			js: {
+				files: {
+						'<%= test_path %>/js/remp_options_page.min.js': '<%= pkg.dirs.src %>/js/remp_options_page.js',
+						'<%= test_path %>/js/cmb2-conditionals.min.js': '<%= pkg.dirs.src %>/js/cmb2-conditionals.js',
+						'<%= test_path %>/js/jstree.min.js': '<%= pkg.dirs.src %>/js/noLint/jstree.js',
+						'<%= test_path %>/js/jstreegrid.min.js': '<%= pkg.dirs.src %>/js/noLint/jstreegrid.js',
+						'<%= test_path %>/js/cmb2_field_type_tree.min.js': '<%= pkg.dirs.src %>/js/cmb2_field_type_tree.js',
+					}
+			},
+			js_dist: {
+				files: {
+						'<%= dist_path %>/js/remp_options_page.min.js': '<%= pkg.dirs.src %>/js/remp_options_page.js',
+						'<%= dist_path %>/js/cmb2-conditionals.min.js': '<%= pkg.dirs.src %>/js/cmb2-conditionals.js',
+						'<%= dist_path %>/js/jstree.min.js': '<%= pkg.dirs.src %>/js/noLint/jstree.js',
+						'<%= dist_path %>/js/jstreegrid.min.js': '<%= pkg.dirs.src %>/js/noLint/jstreegrid.js',
+						'<%= dist_path %>/js/cmb2_field_type_tree.min.js': '<%= pkg.dirs.src %>/js/cmb2_field_type_tree.js',
+					}
+			},
+		},
 		
 		
 		sass:{
@@ -207,13 +249,9 @@ module.exports = function(grunt){
 					// style: 'compressed'
 				},
 				files:{
-					
-					
-					
-
-					
-'<%= test_path %>/css/islcrm_options_page.css': '<%= pkg.dirs.src %>/sass/islcrm_options_page.scss',
-					
+					'<%= test_path %>/css/remp_options_page.min.css': '<%= pkg.dirs.src %>/sass/remp_options_page.scss',
+					'<%= test_path %>/css/cmb2_filed_type_tree.min.css': '<%= pkg.dirs.src %>/sass/cmb2_filed_type_tree.scss',
+					'<%= test_path %>/css/cmb2_field_type_key_val.min.css': '<%= pkg.dirs.src %>/sass/cmb2_field_type_key_val.scss',
 				}
 			},
 			dist: {
@@ -222,13 +260,9 @@ module.exports = function(grunt){
 					style: 'compressed'
 				},
 				files:{
-					
-					
-					
-
-					
-'<%= dist_path %>/css/islcrm_options_page.css': '<%= pkg.dirs.src %>/sass/islcrm_options_page.scss',
-					
+					'<%= dist_path %>/css/remp_options_page.min.css': '<%= pkg.dirs.src %>/sass/remp_options_page.scss',
+					'<%= dist_path %>/css/cmb2_filed_type_tree.min.css': '<%= pkg.dirs.src %>/sass/cmb2_filed_type_tree.scss',
+					'<%= dist_path %>/css/cmb2_field_type_key_val.min.css': '<%= pkg.dirs.src %>/sass/cmb2_field_type_key_val.scss',
 				}
 			}
 		},
@@ -482,11 +516,11 @@ module.exports = function(grunt){
 						'copy:readme',
 						
 					// assets from src to testingDir
+						'jshint',
+						'uglify:js',
 						
 
-						
-
-						
+						'sass:build',
 
 						
 
@@ -761,14 +795,14 @@ module.exports = function(grunt){
 
 						'copy:readme_dist',
 						
-					// assets from src to testingDir
+					// transcompile from src to dist
+						'jshint',
+						'uglify:js_dist',
 						
 
 						
 
-						
-
-						
+						'sass:dist',
 
 						
 

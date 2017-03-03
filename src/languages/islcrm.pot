@@ -1,14 +1,14 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the is24-lead-import-for-wp-crm package.
+# This file is distributed under the same license as the rest-importer package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: is24-lead-import-for-wp-crm 0.0.0\n"
+"Project-Id-Version: rest-importer 0.0.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-03 15:45+0100\n"
+"POT-Creation-Date: 2017-03-09 18:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,101 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/functions/islcrm_options_page.php:63
+#: src/functions/Remp_Admin_Options.php:80
 msgid "IS24 Lead import for WP-CRM"
 msgstr ""
 
-#: src/functions/islcrm_options_page.php:171
+#: src/functions/Remp_Admin_Options.php:186
+msgid "Connection Settings"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:192
+msgid "IS24 API-Key"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:202
+msgid "IS24 API-Secret"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:239
+msgid "How to store the response in the database?"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:254
+msgid "Map {#}"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:255
+msgid "Add Another Map"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:256
+msgid "Remove Map"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:263
+msgid "Map id"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:264
+msgid "A unique identifier"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:274
+msgid "WP Object Type"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:275
+msgid "Save the response as WordPress post or user."
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:280
+msgid "Post"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:281
+msgid "User"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:289
+msgid "Lead Source Type"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:295
+msgid "ImmobilienScout24"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:337
+msgid "Map Tree"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:379
+msgid "Scout Id"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:389
+msgid "From"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:398
+msgid "To"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:407
+msgid "Test"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:517
 msgid "Settings updated."
+msgstr ""
+
+#: src/functions/remp_cron.php:14
+msgid "Every Minute"
+msgstr ""
+
+#: src/plugin_main_file/init.php:46
+#, php-format
+msgid ""
+"\"%s\" plugin requires \"%s\" plugin to be installed and activated, PHP "
+"version %s or greater and cURL enabled!"
 msgstr ""

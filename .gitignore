@@ -18,11 +18,11 @@
 !/src
 !src/**/*
 
-# include dir dist/latest
+# include dir dist/trunk
 !/dist
 /dist/*
-!dist/latest
-!dist/latest/**/*
+!dist/trunk
+!dist/trunk/**/*
 
 # ignore certain file patterns
 _test*

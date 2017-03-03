@@ -3,17 +3,21 @@
 	grunt.concat_in_order.declare('init');
 */
 
+// If this file is called directly, abort.
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
 
 // load_plugin_textdomain
-function islcrm_load_textdomain(){
+function remp_load_textdomain(){
 	
 	load_plugin_textdomain(
-		'islcrm',
+		'remp',
 		false,
 		dirname( plugin_basename( __FILE__ ) ) . '/languages'
 	);
 }
-add_action( 'init', 'islcrm_load_textdomain' );
+add_action( 'init', 'remp_load_textdomain' );
 
 
 

@@ -1,0 +1,51 @@
+		<script type="text/javascript">
+		$(document).ready(function(){
+				var data, trees, i, expected;
+
+				data = [{
+					text: "Root 1",
+					data: {price: "$5.00", size: "4",spanclass:"root"},
+					children: [
+						{text: "Really long named child whose name gets cut off", data: {price: "<b>$4.00</b>", size: "3",spanclass:"first"}},
+						{text: "Child 2", data: {price: "<i>$3.00</i>", size: "2",spanclass:"second"}, children:[
+							{text:"Grandchild",data:{price: "EXPENSIVE!",size:"10",spanclass:"third"}}
+						]}
+					]
+				}];
+
+				$("#jstree").on("resize_column.jstree-grid",function (e,column,width) {
+					$("#colnum").text(column);
+					$("#size").text(width);
+					$("showevent").show();
+				});
+
+				$("#jstree").jstree(
+					{
+						htmlheader: 'Fixed Width, All Columns Defined, Columns &lt; Width',
+						plugins: ["themes","json","grid"],
+						core: {
+							data: data
+						},
+						grid: {
+							width: 400,
+							columns: [
+								{width: 150, header: "Nodes",title:"_DATA_"},
+								{width: 100, cellClass: "col1", value: "price", header: "<i>Price</i>", title:"price", valueClass:"spanclass"},
+								{width: 75, cellClass: "col2", value: "size", header: "Qty", title:"size",valueClass:"spanclass"}
+							],
+							resizable:true,
+							contextmenu:true
+						}
+					}
+				);
+
+			});
+
+		</script>
+
+		<h2>Tree Grid Column Resize Event Test</h2>
+		<div id="showevent">
+			Column <span id="colnum">N/A</span> now has size <span id="size">UNKNOWN</span>.
+		</div>
+		<div id="jstree">
+		</div>

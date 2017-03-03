@@ -1,12 +1,12 @@
 {
-  "name": "is24-lead-import-for-wp-crm",
-  "fullName": "IS24 Lead import for WP-CRM",
-  "funcPrefix": "islcrm",
-  "uri": "http://waterproof-webdesign.info/is24-lead-import-for-wp-crm",
-  "textDomain": "islcrm",
+  "name": "rest-importer",
+  "fullName": "REST Importer",
+  "funcPrefix": "remp",
+  "uri": "https://github.com/jhotadhari/rest-importer",
+  "textDomain": "remp",
   "domainPath": "/languages",
-  "version": "0.0.0",
-  "description": "This is a beautiful plugin",
+  "version": "0.0.1",
+  "description": "Get remote data and save it as posts or users. Customize the way the data gets stored.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,9 +16,9 @@
   "authorUri": "http://waterproof-webdesign.info/",
   "license": "GNU General Public License v2 or later",
   "licenseUri": "http://www.gnu.org/licenses/gpl-2.0.html",
-  "tags": "",
-  "donateLink": "",
-  "wpVersionTested": "4.7.2",
+  "tags": "REST,import,remote,json",
+  "donateLink": "http://waterproof-webdesign.info/donate",
+  "wpVersionTested": "4.7.3",
   "wpRequiresAtLeast": "4.7",
   "devDependencies": {
     "grunt": "^1.0.1",

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d01c93ac89421bf2330114a500f80c9e",
-    "content-hash": "31b0f3f1dd4f4366ad014f8b156f37bc",
+    "hash": "4b888e94d50951d02d758a95af4c40c1",
+    "content-hash": "da7705c276f30bef5d79106ba7447a1d",
     "packages": [
         {
             "name": "composer/installers",
@@ -115,12 +115,85 @@
             "time": "2016-08-13 20:53:52"
         },
         {
+            "name": "deitch/jstree-grid",
+            "version": "0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/deitch/jstree-grid.git",
+                "reference": "7f7228ec06bed4671cce3c8665ca4f6cdc0fb802"
+            },
+            "type": "library"
+        },
+        {
+            "name": "eher/oauth",
+            "version": "1.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EHER/OAuth.git",
+                "reference": "935c1f7709d1c1457de9e250d0e5f29cac06e507"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EHER/OAuth/zipball/935c1f7709d1c1457de9e250d0e5f29cac06e507",
+                "reference": "935c1f7709d1c1457de9e250d0e5f29cac06e507",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "eher/phpunit": "1.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Eher\\OAuth": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "description": "OAuth 1 PHP Library",
+            "time": "2012-12-13 23:48:10"
+        },
+        {
+            "name": "jcchavezs/cmb2-conditionals",
+            "version": "0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jcchavezs/cmb2-conditionals.git",
+                "reference": "57aab8d97a9604348076b8f8a1c4630d7fd70482"
+            },
+            "type": "library"
+        },
+        {
+            "name": "jhotadhari/cmb2_field_type_crypt",
+            "version": "0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jhotadhari/cmb2_field_type_crypt.git",
+                "reference": "master"
+            },
+            "type": "library"
+        },
+        {
             "name": "jmarceli/integration-cmb2-qtranslate",
             "version": "0.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jmarceli/integration-cmb2-qtranslate.git",
                 "reference": "0.1.1"
+            },
+            "type": "library"
+        },
+        {
+            "name": "vakata/jstree",
+            "version": "0.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vakata/jstree.git",
+                "reference": "e7961162583f4a7644dc56bc6d9c61fcc087f544"
             },
             "type": "library"
         },
