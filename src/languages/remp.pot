@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: rest-importer 0.0.1\n"
+"Project-Id-Version: rest-importer 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-13 11:59+0100\n"
+"POT-Creation-Date: 2017-03-18 20:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/functions/functions/remp_get_post_types.php:33
-#: src/functions/Remp_Admin_Options.php:363
+#: src/functions/Remp_Admin_Options.php:376
 msgid "Post"
 msgstr ""
 
@@ -26,339 +26,390 @@ msgstr ""
 msgid "Page"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:80
+#: src/functions/Remp_Admin_Options.php:83
 msgid "REST Importer"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:186
+#: src/functions/Remp_Admin_Options.php:189
 msgid "Connection Settings"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:200
+#: src/functions/Remp_Admin_Options.php:203
 msgid "Source {#}"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:201
+#: src/functions/Remp_Admin_Options.php:204
 msgid "Add Another Source"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:202
+#: src/functions/Remp_Admin_Options.php:205
 msgid "Remove Source"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:209
+#: src/functions/Remp_Admin_Options.php:212
 msgid "Source id"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:212
-#: src/functions/Remp_Admin_Options.php:346
-#: src/functions/Remp_Admin_Options.php:626
+#: src/functions/Remp_Admin_Options.php:215
+#: src/functions/Remp_Admin_Options.php:359
+#: src/functions/Remp_Admin_Options.php:639
 msgid "A unique identifier."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:213
-#: src/functions/Remp_Admin_Options.php:347
-#: src/functions/Remp_Admin_Options.php:627
+#: src/functions/Remp_Admin_Options.php:216
+#: src/functions/Remp_Admin_Options.php:360
+#: src/functions/Remp_Admin_Options.php:640
 msgid "This should be a slug. However, it will be slugified automatically."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:222
+#: src/functions/Remp_Admin_Options.php:225
 msgid "Authorization"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:231
+#: src/functions/Remp_Admin_Options.php:234
 msgid "None"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:232
+#: src/functions/Remp_Admin_Options.php:235
 msgid "OAuth 1.0a one-legged"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:243
+#: src/functions/Remp_Admin_Options.php:246
 msgid "Resource Url"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:260
+#: src/functions/Remp_Admin_Options.php:263
 msgid "Consumer Key"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:272
+#: src/functions/Remp_Admin_Options.php:275
 msgid "Consumer Secret"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:313
+#: src/functions/Remp_Admin_Options.php:316
 msgid "How to store the response in the database?"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:315
+#: src/functions/Remp_Admin_Options.php:318
 msgid "Are you confused?"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:316
+#: src/functions/Remp_Admin_Options.php:319
 msgid "Check out response example at the bottom of the page."
 msgstr ""
 
 #: src/functions/Remp_Admin_Options.php:332
-msgid "Map {#}"
+msgid "Hey sorry small bug here, will fix that soon."
 msgstr ""
 
 #: src/functions/Remp_Admin_Options.php:333
+msgid ""
+"When you add a new map, just type in the id and save (button at the bottom "
+"of the page)"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:345
+msgid "Map {#}"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:346
 msgid "Add Another Map"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:334
+#: src/functions/Remp_Admin_Options.php:347
 msgid "Remove Map"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:343
+#: src/functions/Remp_Admin_Options.php:356
 msgid "Map id"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:357
+#: src/functions/Remp_Admin_Options.php:370
 msgid "WP Object Type"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:358
+#: src/functions/Remp_Admin_Options.php:371
 msgid "Save the response as WordPress objects."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:364
+#: src/functions/Remp_Admin_Options.php:377
 msgid "User"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:381
+#: src/functions/Remp_Admin_Options.php:394
 msgid "Post type"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:394
+#: src/functions/Remp_Admin_Options.php:407
 msgid "Post status"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:407
+#: src/functions/Remp_Admin_Options.php:420
 msgid "Post Title"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:409
+#: src/functions/Remp_Admin_Options.php:422
 msgid ""
 "Default post title, may be overwritten by the mapping tree or your filter "
 "functions."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:427
+#: src/functions/Remp_Admin_Options.php:440
 msgid "User Role"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:441
+#: src/functions/Remp_Admin_Options.php:454
 msgid "Unique user_login and user_email"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:450
+#: src/functions/Remp_Admin_Options.php:463
 msgid "user_email is required!"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:453
+#: src/functions/Remp_Admin_Options.php:466
 msgid ""
 "If no user_login is set, the user_mail or something random will be used "
 "instead."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:454
+#: src/functions/Remp_Admin_Options.php:467
 msgid "The user_login is quite fix and can't be changed later without magic."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:455
+#: src/functions/Remp_Admin_Options.php:468
 msgid "If no valid email is set, import will skip this user."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:460
+#: src/functions/Remp_Admin_Options.php:473
 msgid ""
 "If either user_login or user_email already exist or both exist and belong to "
 "same existing user"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:462
+#: src/functions/Remp_Admin_Options.php:475
 msgid ""
 "If user_email and user_login exist but don't belong to the same existing "
 "user, the entry will be skipped."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:466
+#: src/functions/Remp_Admin_Options.php:479
 msgid "Skip entry"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:467
+#: src/functions/Remp_Admin_Options.php:480
 msgid "Merge carefully, don't overwride"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:468
+#: src/functions/Remp_Admin_Options.php:481
 msgid "Merge rude and overwride"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:488
+#: src/functions/Remp_Admin_Options.php:501
 msgid "Define Root"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:491
+#: src/functions/Remp_Admin_Options.php:504
 msgid "Where to start traversing the response tree?"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:492
+#: src/functions/Remp_Admin_Options.php:505
 msgid "Seperator (without quotes): \"=>\""
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:493
+#: src/functions/Remp_Admin_Options.php:506
 msgid ""
 "Example to loop lovely_people (without quotes): \"results=>lovely_people\""
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:494
+#: src/functions/Remp_Admin_Options.php:507
 msgid "If empty, the root will be the actual root of the response."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:500
+#: src/functions/Remp_Admin_Options.php:513
 msgid "Valid Option Keys for Object Post"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:502
-#: src/functions/Remp_Admin_Options.php:520
+#: src/functions/Remp_Admin_Options.php:515
+#: src/functions/Remp_Admin_Options.php:533
 msgid "For object-meta all keys are valid."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:503
-#: src/functions/Remp_Admin_Options.php:521
+#: src/functions/Remp_Admin_Options.php:516
+#: src/functions/Remp_Admin_Options.php:534
 msgid "Some info:"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:512
+#: src/functions/Remp_Admin_Options.php:525
 msgid "Everything else will be skipped"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:518
+#: src/functions/Remp_Admin_Options.php:531
 msgid "Valid Option Keys for Object User"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:530
+#: src/functions/Remp_Admin_Options.php:543
 msgid "Everything else will be skipped (user_email is required!)"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:547
+#: src/functions/Remp_Admin_Options.php:560
 msgid ""
 "Rebuild the response structure and assign the nodes as values (string|array) "
 "to WordPress objects and meta."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:548
+#: src/functions/Remp_Admin_Options.php:561
 msgid "The root node represents the defined root."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:549
+#: src/functions/Remp_Admin_Options.php:562
 msgid "Right click on the fileds and nodes to edit."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:562
+#: src/functions/Remp_Admin_Options.php:575
 msgid "Example respond"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:565
+#: src/functions/Remp_Admin_Options.php:578
 msgid "This is just an example of a response tree."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:566
+#: src/functions/Remp_Admin_Options.php:579
 msgid ""
 "Want a real one? Switch to the Import tab, do some test requests and print "
 "them as admin notice."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:600
+#: src/functions/Remp_Admin_Options.php:612
 msgid " "
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:612
+#: src/functions/Remp_Admin_Options.php:624
 msgid "Request {#}"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:613
+#: src/functions/Remp_Admin_Options.php:625
 msgid "Add Another Request"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:614
+#: src/functions/Remp_Admin_Options.php:626
 msgid "Remove Request"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:623
+#: src/functions/Remp_Admin_Options.php:636
 msgid "Request id"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:636
+#: src/functions/Remp_Admin_Options.php:649
 msgid "State"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:642
+#: src/functions/Remp_Admin_Options.php:655
 msgid "Disabled"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:643
+#: src/functions/Remp_Admin_Options.php:656
 msgid "Do now"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:652
+#: src/functions/Remp_Admin_Options.php:657
+msgid "Do regularly"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:665
 msgid "Source"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:655
+#: src/functions/Remp_Admin_Options.php:668
 msgid "Choose a source"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:673
-msgid "What to do?"
+#: src/functions/Remp_Admin_Options.php:687
+msgid "wp_cron"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:678
-msgid "Print as admin notice"
+#: src/functions/Remp_Admin_Options.php:691
+#, php-format
+msgid "To change the request parameter during the request use the %s filter. "
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:679
-msgid "Print to debug log"
+#: src/functions/Remp_Admin_Options.php:692
+msgid ""
+"Where {$request_id} is this Request id. It takes four parameters and the "
+"last one is the timestamp of the last request."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:680
-#: src/functions/Remp_Admin_Options.php:686
-msgid "Save response"
+#: src/functions/Remp_Admin_Options.php:693
+msgid "Read the source code for further information"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:688
-msgid "Select from value maps"
+#: src/functions/Remp_Admin_Options.php:700
+msgid "It's wp_cron, so it won't be in time but will be done sometime."
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:699
-msgid "Send mails"
-msgstr ""
-
-#: src/functions/Remp_Admin_Options.php:701
-msgid "Select from mail templates"
-msgstr ""
-
-#: src/functions/Remp_Admin_Options.php:706
-msgid "test 1"
+#: src/functions/Remp_Admin_Options.php:705
+msgid "Cron Schedule"
 msgstr ""
 
 #: src/functions/Remp_Admin_Options.php:707
-msgid "test 2"
+msgid "How to add more options:"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:708
-msgid "test 3"
+#: src/functions/Remp_Admin_Options.php:730
+msgid "What to do?"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:727
+#: src/functions/Remp_Admin_Options.php:735
+msgid "Print as admin notice"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:736
+msgid "Print to debug log"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:737
+#: src/functions/Remp_Admin_Options.php:742
+msgid "Save response"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:744
+msgid "Select from value maps"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:765
 msgid "Parameter"
 msgstr ""
 
-#: src/functions/Remp_Admin_Options.php:976
+#: src/functions/Remp_Admin_Options.php:802
+msgid "Deactivation Settings"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:809
+msgid "Delete Settings and cron log"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:812
+msgid ""
+"Do you want to delete the REST Importer settings and cron log on plugin "
+"deactivation?"
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:813
+msgid "This will not delete the imported Posts and Users."
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:817
+msgid "No, remember everything for next time."
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:818
+msgid "Delete all Settings and cron log."
+msgstr ""
+
+#: src/functions/Remp_Admin_Options.php:972
 msgid "Settings updated."
 msgstr ""
 
-#: src/plugin_main_file/init.php:44
+#: src/plugin_main_file/init.php:43
 #, php-format
 msgid "\"%s\" plugin requires PHP version %s or greater and cURL enabled!"
 msgstr ""

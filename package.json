@@ -5,7 +5,7 @@
   "uri": "https://github.com/jhotadhari/rest-importer",
   "textDomain": "remp",
   "domainPath": "/languages",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Get remote data and save it as posts or users. Customize the way the data gets stored.",
   "main": "index.js",
   "scripts": {

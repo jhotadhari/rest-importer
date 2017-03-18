@@ -110,6 +110,9 @@ class Remp_Admin_Options {
 				'save_button' => 'Requests/Import'
 				)
 		),
+		'settings' => array(
+			'title' => 'Settings',
+		),
 	);
 	
 	/**
@@ -276,12 +279,12 @@ class Remp_Admin_Options {
 		$group_field_id = $cmb->add_field( array(
 			'id'          => 'sources',
 			'type'        => 'group',
-			// 'description' => __( 'Generates reusable form entries', 'cmb2' ),
+			// 'description' => __( 'Generates reusable form entries', 'remp' ),
 			'repeatable'  => true, // use false if you want non-repeatable group
 			'options'     => array(
-				'group_title'   => __( 'Source {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-				'add_button'    => __( 'Add Another Source', 'cmb2' ),
-				'remove_button' => __( 'Remove Source', 'cmb2' ),
+				'group_title'   => __( 'Source {#}', 'remp' ), // since version 1.1.4, {#} gets replaced by row number
+				'add_button'    => __( 'Add Another Source', 'remp' ),
+				'remove_button' => __( 'Remove Source', 'remp' ),
 				'sortable'      => false, // beta
 				'closed'     	=> true,
 			),
@@ -291,8 +294,8 @@ class Remp_Admin_Options {
 			'name' => __( 'Source id', 'remp' ),
 			'id'   => 'id',
 			'description' => 
-				__( 'A unique identifier.', 'cmb2' ) . '<br>' . 
-				__( 'This should be a slug. However, it will be slugified automatically.', 'cmb2' ),
+				__( 'A unique identifier.', 'remp' ) . '<br>' . 
+				__( 'This should be a slug. However, it will be slugified automatically.', 'remp' ),
 			'type' => 'slug',
 			'repeatable' => false,
 			'attributes' => array(
@@ -394,26 +397,36 @@ class Remp_Admin_Options {
 		$cmb->add_field( array(
 			'name' => __( 'How to store the response in the database?', 'remp' ),
 			'description' =>
-				__( 'Are you confused?', 'cmb2' ) . '<br>' . 
-				__( 'Check out response example at the bottom of the page.', 'cmb2' ),
+				__( 'Are you confused?', 'remp' ) . '<br>' . 
+				__( 'Check out response example at the bottom of the page.', 'remp' ),
 			'id'   => 'title',
 			'type' => 'title',
 		) );
 		
 		
-
+		$cmb->add_field( array(
+			'id'   => 'mapping_bug_info',
+			'type' => 'info',
+			'attributes' => array(
+				'required'    => false,
+				'paragraph' => false,
+				'info' => 
+					__( 'Hey sorry small bug here, will fix that soon.', 'remp' ) . '<br>'  .
+					__( 'When you add a new map, just type in the id and save (button at the bottom of the page)', 'remp' ),
+			)
+		) );
 		
 		
 		
 		$group_field_id = $cmb->add_field( array(
 			'id'          => 'value_map',
 			'type'        => 'group',
-			// 'description' => __( 'Generates reusable form entries', 'cmb2' ),
+			// 'description' => __( 'Generates reusable form entries', 'remp' ),
 			'repeatable'  => true, // use false if you want non-repeatable group
 			'options'     => array(
-				'group_title'   => __( 'Map {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-				'add_button'    => __( 'Add Another Map', 'cmb2' ),
-				'remove_button' => __( 'Remove Map', 'cmb2' ),
+				'group_title'   => __( 'Map {#}', 'remp' ), // since version 1.1.4, {#} gets replaced by row number
+				'add_button'    => __( 'Add Another Map', 'remp' ),
+				'remove_button' => __( 'Remove Map', 'remp' ),
 				'sortable'      => false, // beta
 				'closed'     	=> true,
 			),
@@ -425,8 +438,8 @@ class Remp_Admin_Options {
 			'name' => __( 'Map id', 'remp' ),
 			'id'   => 'id',
 			'description' => 
-				__( 'A unique identifier.', 'cmb2' ) . '<br>' . 
-				__( 'This should be a slug. However, it will be slugified automatically.', 'cmb2' ),
+				__( 'A unique identifier.', 'remp' ) . '<br>' . 
+				__( 'This should be a slug. However, it will be slugified automatically.', 'remp' ),
 			'type' => 'slug',
 			'repeatable' => false,
 			'attributes' => array(
@@ -437,13 +450,13 @@ class Remp_Admin_Options {
 		
 		$cmb->add_group_field( $group_field_id, array(
 			'name' => __( 'WP Object Type', 'remp' ),
-			'description' => __( 'Save the response as WordPress objects.', 'cmb2' ),
+			'description' => __( 'Save the response as WordPress objects.', 'remp' ),
 			'id'   => 'object_type',
 			'type'             => 'radio',
 			'show_option_none' => false,
 			'options'          => array(
-				'post' => __( 'Post', 'cmb2' ),
-				'user' => __( 'User', 'cmb2' ),
+				'post' => __( 'Post', 'remp' ),
+				'user' => __( 'User', 'remp' ),
 			),
 			'attributes' => array(
 				'required'    => true,
@@ -488,7 +501,7 @@ class Remp_Admin_Options {
 		$cmb->add_group_field( $group_field_id, array(
 			'name' => __( 'Post Title', 'remp' ),
 			'id'   => 'post_title',
-			'description' => __( 'Default post title, may be overwritten by the mapping tree or your filter functions.', 'cmb2' ),
+			'description' => __( 'Default post title, may be overwritten by the mapping tree or your filter functions.', 'remp' ),
 			'type'       => 'text',
 			'attributes' => array(
 				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'object_type' ) ),
@@ -507,7 +520,7 @@ class Remp_Admin_Options {
 		/* row 3 user */
 		$cmb->add_group_field( $group_field_id, array(
 			'name' => __( 'User Role', 'remp' ),
-			// 'description' => __( 'Save the response as WordPress objects.', 'cmb2' ),
+			// 'description' => __( 'Save the response as WordPress objects.', 'remp' ),
 			'id'   => 'role',
 			'type'             => 'radio',
 			'show_option_none' => false,
@@ -529,25 +542,25 @@ class Remp_Admin_Options {
 				'data-conditional-value' => 'user',
 				'paragraph' => false,
 				'info' => 
-					__( 'user_email is required!', 'cmb2' ) . '<br>'  .
-					// __('Make sure to assign an email address to the user.', 'cmb2' ) . '<br>'  .
+					__( 'user_email is required!', 'remp' ) . '<br>'  .
+					// __('Make sure to assign an email address to the user.', 'remp' ) . '<br>'  .
 
-					__( 'If no user_login is set, the user_mail or something random will be used instead.', 'cmb2' ) . '<br>'  .
-					__( 'The user_login is quite fix and can\'t be changed later without magic.', 'cmb2' ) . '<br>'  .
-					__( 'If no valid email is set, import will skip this user.', 'cmb2' ),
+					__( 'If no user_login is set, the user_mail or something random will be used instead.', 'remp' ) . '<br>'  .
+					__( 'The user_login is quite fix and can\'t be changed later without magic.', 'remp' ) . '<br>'  .
+					__( 'If no valid email is set, import will skip this user.', 'remp' ),
 			)
 		) );
 		
 		$cmb->add_group_field( $group_field_id, array(
 			'name' => __( 'If either user_login or user_email already exist or both exist and belong to same existing user', 'remp' ),
 			'id'  			 => 'user_exists',
-			'desc'           => __( 'If user_email and user_login exist but don\'t belong to the same existing user, the entry will be skipped.', 'cmb2' ),
+			'desc'           => __( 'If user_email and user_login exist but don\'t belong to the same existing user, the entry will be skipped.', 'remp' ),
 			'type'             => 'radio',
 			'show_option_none' => false,
 			'options'          => array(
-				'skip' => __( 'Skip entry', 'cmb2' ),
-				'merge_carefully' => __( 'Merge carefully, don\'t overwride', 'cmb2' ),
-				'merge_overwride' => __( 'Merge rude and overwride', 'cmb2' ),
+				'skip' => __( 'Skip entry', 'remp' ),
+				'merge_carefully' => __( 'Merge carefully, don\'t overwride', 'remp' ),
+				'merge_overwride' => __( 'Merge rude and overwride', 'remp' ),
 			),
 			'attributes' => array(
 				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'object_type' ) ),
@@ -570,10 +583,10 @@ class Remp_Admin_Options {
 			'name' => __( 'Define Root', 'remp' ),
 			'id'   => 'root',
 			'description' => 
-				__( 'Where to start traversing the response tree?', 'cmb2' ) . '<br>' . 
-				__( 'Seperator (without quotes): "=>"', 'cmb2' ) . '<br>' . 
-				__( 'Example to loop lovely_people (without quotes): "results=>lovely_people"', 'cmb2' ) . '<br>' . 
-				__( 'If empty, the root will be the actual root of the response.', 'cmb2' ),
+				__( 'Where to start traversing the response tree?', 'remp' ) . '<br>' . 
+				__( 'Seperator (without quotes): "=>"', 'remp' ) . '<br>' . 
+				__( 'Example to loop lovely_people (without quotes): "results=>lovely_people"', 'remp' ) . '<br>' . 
+				__( 'If empty, the root will be the actual root of the response.', 'remp' ),
 			'type' => 'text',
 		) );
 		
@@ -581,8 +594,8 @@ class Remp_Admin_Options {
 		$cmb->add_group_field( $group_field_id, array(
 			'name' => __( 'Valid Option Keys for Object Post', 'remp' ),
 			'description' => 
-				__( 'For object-meta all keys are valid.', 'cmb2' ) . '<br>' . 
-				__( 'Some info:', 'cmb2' ) . ' <a href="https://codex.wordpress.org/Class_Reference/WP_Post#Member_Variables_of_WP_Post" target="_blank">Class Reference/WP Post</a>',
+				__( 'For object-meta all keys are valid.', 'remp' ) . '<br>' . 
+				__( 'Some info:', 'remp' ) . ' <a href="https://codex.wordpress.org/Class_Reference/WP_Post#Member_Variables_of_WP_Post" target="_blank">Class Reference/WP Post</a>',
 			'id'   => 'post_valid_option_keys',
 			'type'             => 'info',
 			'attributes' => array(
@@ -591,7 +604,7 @@ class Remp_Admin_Options {
 				'data-conditional-value' => 'post',
 				'paragraph' => false,
 				'info' => 
-					__( 'Everything else will be skipped', 'cmb2' ) . ':<br>'  .
+					__( 'Everything else will be skipped', 'remp' ) . ':<br>'  .
 					remp_get_valid_option_keys( 'post', true ),
 			)
 		) );		
@@ -599,8 +612,8 @@ class Remp_Admin_Options {
 		$cmb->add_group_field( $group_field_id, array(
 			'name' => __( 'Valid Option Keys for Object User', 'remp' ),
 			'description' => 
-				__( 'For object-meta all keys are valid.', 'cmb2' ) . '<br>' . 
-				__( 'Some info:', 'cmb2' ) . ' <a href="https://codex.wordpress.org/Function_Reference/wp_insert_user" target="_blank">Function_Reference/wp_insert_user</a>',
+				__( 'For object-meta all keys are valid.', 'remp' ) . '<br>' . 
+				__( 'Some info:', 'remp' ) . ' <a href="https://codex.wordpress.org/Function_Reference/wp_insert_user" target="_blank">Function_Reference/wp_insert_user</a>',
 			'id'   => 'user_valid_option_keys',
 			'type'             => 'info',
 			'attributes' => array(
@@ -609,7 +622,7 @@ class Remp_Admin_Options {
 				'data-conditional-value' => 'user',
 				'paragraph' => false,
 				'info' => 
-					__( 'Everything else will be skipped (user_email is required!)', 'cmb2' ) . ':<br>'  .
+					__( 'Everything else will be skipped (user_email is required!)', 'remp' ) . ':<br>'  .
 					remp_get_valid_option_keys( 'user', true ),
 			)
 		) );		
@@ -644,8 +657,8 @@ class Remp_Admin_Options {
 			'name' => __( 'Example respond', 'remp' ),
 			'id'   => 'exp_respond',
 			'description' => 
-				__( 'This is just an example of a response tree.', 'cmb2' ) . '<br>' . 
-				__( 'Want a real one? Switch to the Import tab, do some test requests and print them as admin notice.', 'cmb2' ),
+				__( 'This is just an example of a response tree.', 'remp' ) . '<br>' . 
+				__( 'Want a real one? Switch to the Import tab, do some test requests and print them as admin notice.', 'remp' ),
 			'type' => 'exp_respond',
 		) );		
 		
@@ -663,10 +676,9 @@ class Remp_Admin_Options {
 		$metabox_id = $this->key . '_' . $tab;
 		
 		// hook in our save notices
-		// add_action( "cmb2_save_options-page_fields_{$metabox_id}", array( $this, 'settings_notices' ), 10, 2 );
+		add_action( "cmb2_save_options-page_fields_{$metabox_id}", array( $this, 'settings_notices' ), 10, 2 );
 
 		$cmb = new_cmb2_box( array(
-			// 'id'         => $this->metabox_id,
 			'id'         => $metabox_id,
 			'hookup'     => false,
 			'cmb_styles' => false,
@@ -688,25 +700,26 @@ class Remp_Admin_Options {
 		$group_field_id = $cmb->add_field( array(
 			'id'          => 'request',
 			'type'        => 'group',
-			// 'description' => __( 'Generates reusable form entries', 'cmb2' ),
+			// 'description' => __( 'Generates reusable form entries', 'remp' ),
 			'repeatable'  => true, // use false if you want non-repeatable group
 			'options'     => array(
-				'group_title'   => __( 'Request {#}', 'cmb2' ), // since version 1.1.4, {#} gets replaced by row number
-				'add_button'    => __( 'Add Another Request', 'cmb2' ),
-				'remove_button' => __( 'Remove Request', 'cmb2' ),
+				'group_title'   => __( 'Request {#}', 'remp' ), // since version 1.1.4, {#} gets replaced by row number
+				'add_button'    => __( 'Add Another Request', 'remp' ),
+				'remove_button' => __( 'Remove Request', 'remp' ),
 				'sortable'      => false, // beta
 				'closed'     	=> true,
 			),
 		) );
 		
 		
+		/* row 1 */
 		
 		$cmb->add_group_field( $group_field_id, array(
 			'name' => __( 'Request id', 'remp' ),
 			'id'   => 'id',
 			'description' => 
-				__( 'A unique identifier.', 'cmb2' ) . '<br>' . 
-				__( 'This should be a slug. However, it will be slugified automatically.', 'cmb2' ),
+				__( 'A unique identifier.', 'remp' ) . '<br>' . 
+				__( 'This should be a slug. However, it will be slugified automatically.', 'remp' ),
 			'type' => 'slug',
 			'repeatable' => false,
 			'attributes' => array(
@@ -722,8 +735,8 @@ class Remp_Admin_Options {
 			'select_all_button' => false,
 			'options' => array(
 				'disabled' => __( 'Disabled', 'remp' ),
-				'save' => __( 'Do now', 'cmb2' ),
-				// 'cron' => __( 'Do regularly (cron)', 'cmb2' ),
+				'save' => __( 'Do now', 'remp' ),
+				'cron' => __( 'Do regularly', 'remp' ) . ' (wp_cron)',
 			),
 			'attributes' => array(
 				'required'    => true,
@@ -734,7 +747,7 @@ class Remp_Admin_Options {
 			'name' => __( 'Source', 'remp' ),
 			'id'   => 'source',
 
-			'description' => __( 'Choose a source', 'cmb2' ),
+			'description' => __( 'Choose a source', 'remp' ),
 			'type'             => 'radio',
 			'options_cb' => array( $this, 'options_cb_source'),
 			'attributes' => array(
@@ -748,8 +761,52 @@ class Remp_Admin_Options {
 		) );
 		
 		
+		/* row 2 */
 		
 		
+		
+		$cmb->add_group_field( $group_field_id, array(
+			'name' => __( 'wp_cron', 'remp' ),
+			'id'   => 'cron_info',
+			'type'             => 'info',
+			'description' => 
+				sprintf( __( 'To change the request parameter during the request use the %s filter. ', 'remp' ), 'remp_request_{$request_id}_params' ) . ' ' . 
+				__( 'Where {$request_id} is this Request id. It takes four parameters and the last one is the timestamp of the last request.', 'remp' ) . ' ' . 
+				__( 'Read the source code for further information', 'remp' ),
+			'attributes' => array(
+				'required'    => false,
+				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'state' ) ),
+				'data-conditional-value' => 'cron',
+				'paragraph' => false,
+				'info' => 
+					__("It's wp_cron, so it won't be in time but will be done sometime.", "remp" ),
+			)
+		) );			
+		
+		$cmb->add_group_field( $group_field_id, array(
+			'name' => __( 'Cron Schedule', 'remp' ),
+			'id'   => 'cron_schedule',
+			'description'   => __( 'How to add more options:', 'remp' ) . ' <a href="https://codex.wordpress.org/Plugin_API/Filter_Reference/cron_schedules" target="_blank">Filter_Reference/cron_schedules</a>',
+			'type' => 'radio',
+			'select_all_button' => false,
+			'options_cb' => array( $this, 'options_cb_cron_schedule'),
+			'attributes' => array(
+				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'state' ) ),
+				'data-conditional-value' => 'cron',
+				'required'    => true,
+			)
+		) );
+		
+		
+		
+		
+		$cmb->add_group_field( $group_field_id, array(
+			'id'   => $tab . '_' . rand(100,999),
+			'type' => 'clearfix',
+		) );
+		
+		
+		/* row 3 */
 		
 		$cmb->add_group_field( $group_field_id, array(
 			'name' => __( 'What to do?', 'remp' ),
@@ -757,17 +814,16 @@ class Remp_Admin_Options {
 			'type' => 'multicheck',
 			'select_all_button' => false,
 			'options' => array(
-				'admin_notice' => __( 'Print as admin notice', 'cmb2' ),
-				'log' => __( 'Print to debug log', 'cmb2' ),
-				'save' => __( 'Save response', 'cmb2' ),
-				// 'mail' => __( 'Send mails', 'cmb2' ),
+				'admin_notice' => __( 'Print as admin notice', 'remp' ),
+				'log' => __( 'Print to debug log', 'remp' ),
+				'save' => __( 'Save response', 'remp' ),
 			),
 		) );
 		
 		$cmb->add_group_field( $group_field_id, array(
 			'name' => __( 'Save response', 'remp' ),
 			'id'   => 'value_map',
-			'description' => __( 'Select from value maps', 'cmb2' ),
+			'description' => __( 'Select from value maps', 'remp' ),
 			'type' => 'radio',
 			// 'select_all_button' => false,
 			'options_cb' => array( $this, 'options_cb_value_map'),
@@ -777,23 +833,6 @@ class Remp_Admin_Options {
 			)
 		) );
 		
-		$cmb->add_group_field( $group_field_id, array(
-			'name' => __( 'Send mails', 'remp' ),
-			'id'   => 'mail',
-			'description' => __( 'Select from mail templates', 'cmb2' ),
-			'type' => 'multicheck',
-			'select_all_button' => false,
-			// 'options_cb' => array( $this, 'options_cb_mail'),
-			'options' => array(
-				'test1' => __( 'test 1', 'cmb2' ),
-				'test2' => __( 'test 2', 'cmb2' ),
-				'test3' => __( 'test 3', 'cmb2' ),
-			),
-			'attributes' => array(
-				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'output_method' ) ),
-				'data-conditional-value' => 'mail',
-			)
-		) );
 		
 		$cmb->add_group_field( $group_field_id, array(
 			'id'   => $tab . '_' . rand(100,999),
@@ -802,48 +841,68 @@ class Remp_Admin_Options {
 		
 		
 		
-		
-		
+		/* row 4 */
 		               
 		$cmb->add_group_field( $group_field_id, array(
 			'name' => __( 'Parameter', 'remp' ),
 			'id'   => 'param',
 			'type' => 'key_val',
-
 			'repeatable' => true,
+		) );		
+		
+
+	}
+	
+	
+	
+	/**
+	 * Add the options metabox to the array of metaboxes
+	 * @since  0.1.0
+	 */
+	public function add_options_page_metabox__settings() {
+		$tab = 'settings';
+		
+		$metabox_id = $this->key . '_' . $tab;
+		
+		// hook in our save notices
+		add_action( "cmb2_save_options-page_fields_{$metabox_id}", array( $this, 'settings_notices' ), 10, 2 );
+
+		$cmb = new_cmb2_box( array(
+			'id'         => $metabox_id,
+			'hookup'     => false,
+			'cmb_styles' => false,
+			'show_on'    => array(
+				// These are important, don't remove
+				'key'   => 'options-page',
+				'value' => array( $this->key, )
+			),
+		) );
+		
+		
+		
+		$cmb->add_field( array(
+			'name' => __( 'Deactivation Settings', 'remp' ),
+			'id'   => 'title',
+			'type' => 'title',
+		) );
+		
+		
+		$cmb->add_field( array(
+			'name' => __( 'Delete Settings and cron log', 'remp' ),
+			'id'   => 'deact_delete',
+			'description'   =>
+				__( 'Do you want to delete the REST Importer settings and cron log on plugin deactivation?', 'remp' ) . '<br>' . 
+				__( 'This will not delete the imported Posts and Users.', 'remp' ),
+			'type' => 'radio',
+			'default' => 'no',
+			'options' => array( 
+				'no'			=> __( 'No, remember everything for next time.', 'remp' ),
+				'del_all'   => __( 'Delete all Settings and cron log.', 'remp' ),
+			),
 		) );		
 		
 		
 		
-		// $cmb->add_field( array(
-		// 	'name' => __( 'Scout Id', 'remp' ),
-		// 	// 'desc' => __( 'field description (optional)', 'remp' ),
-		// 	'id'   => 'scoutid',
-		// 	'type' => 'text',
-		// 	'attributes' => array(
-		// 		// 'required'    => true,
-		// 	)
-		// ) );
-
-		// $cmb->add_field( array(
-		// 	'name' => __( 'From', 'remp' ),
-		// 	'id'   => 'from',
-		// 	'type' => 'text_datetime_timestamp',
-		// 	'attributes' => array(
-		// 		'required'    => true,
-		// 	)
-		// ) );
-		
-		// $cmb->add_field( array(
-		// 	'name' => __( 'To', 'remp' ),
-		// 	'id'   => 'to',
-		// 	'type' => 'text_datetime_timestamp',
-		// 	'attributes' => array(
-		// 		'required'    => true,
-		// 	)
-		// ) );
-		
-
 	}
 	
 	protected function get_metabox_by_nonce( $nonce, $return = 'metabox' ) {
@@ -871,10 +930,6 @@ class Remp_Admin_Options {
 	
 	public function handle_submission() {
 		
-		// if (! empty($_POST)){
-		// 	die(print_r($_POST));
-		// }
-		
 		// is form submission?
 		if ( empty( $_POST ) || ! isset( $_POST['submit-cmb'], $_POST['object_id'] ) ) return false;
 		// is remp_options form submission?
@@ -900,85 +955,22 @@ class Remp_Admin_Options {
 			case 'import':
 				if ( empty($_POST['request']) ) return;
 				
-				// if (! empty($_POST['request'])){
-					// die(print_r($_POST['request']));
-				// }
-				
 				// foreach ( $_POST['request'] as $request_k => $request_v ){
 				foreach ( $_POST['request'] as $request ){
 				
-					// $request['id']
-					// $request['state']
-					// $request['source']
-
-					// $request['output_method']
-					// $request['value_map']
-					// $request['mail']
-					
-					// $request['param']
-				
 					// skip request if disabled
 					if ( ! isset( $request['state'] ) || empty( $request['state'] ) || $request['state'] === 'disabled' ) continue;
-					
 
 					// skip request if no output
-
 					if ( ! isset( $request['output_method'] ) || empty( $request['output_method'] ) || $request['output_method'] === null ) continue;
 					
-					
-					// params to key val
-					$params = array();
-					foreach( $request['param'] as $param ){
-						if ( isset( $param['key'] ) && ! empty( $param['key'] ) ){
-							$params[ $param['key'] ] = $param['val'];
-						}
+					// if state do it now, do request 
+					if ( $request['state'] === 'save' ){
+						remp_request( $request );
 					}
-					
-					// get source
-					$sources = cmb2_get_option( $this->key, 'sources', null );
-					foreach( $sources as $source ){
-						if ( $source['id'] == $request['source']) 
-							break;
-					}
-					
-					
-					// get value_map
-					$value_maps = cmb2_get_option( $this->key, 'value_map', false );
-					if ( $value_maps ){
-						foreach( $value_maps as $value_map ){
-							if ( $value_map['id'] == $request['value_map']) 
-								break;
-						}
-					} else {
-						$value_map = false;
-					}
-					
-					
-					
-					// run
-					$args = array(
-						'id'			=>	remp_slugify( $request['id'] ),
-						'state'			=>	$request['state'],
-						'source'		=>	$source,
-						'output_method'	=>	$request['output_method'],
-						'value_map'		=>	$value_map,
-
-						// 'mail'		=>	$request['output_method'],
-
-						'params'		=>	$params,
-					);
-					$Get = 'Remp_Request' . ( $source['authorization'] == 'none' ? '' : '_' . $source['authorization'] );
-					new $Get( $args );
 					
 				}
 
-				// query paramters
-				// $params = array();
-				// $params['from'] = date("Y-m-d\TH:i:s", $sanitized_values['from']);
-				// $params['to'] = date("Y-m-d\TH:i:s", $sanitized_values['to']);
-				// $params['test'] = array_key_exists( 'test', $sanitized_values) && $sanitized_values['test'] === 'on' ? 'true' : 'false';
-				// new Remp_Request( $params );
-				
 				break;
 				
 			default:
@@ -986,11 +978,7 @@ class Remp_Admin_Options {
 				
 		}
 		
-
-		
 	}
-	
-	
 	
 	
 	
@@ -1018,13 +1006,21 @@ class Remp_Admin_Options {
 	public function options_cb_role() {
 		$editable_roles = get_editable_roles();
 		$roles = array();
-		foreach ($editable_roles as $role => $details) {
+		foreach ( (array) $editable_roles as $role => $details) {
 			if ( $role == 'administrator' ) continue;
 			$roles[esc_attr($role)] = translate_user_role($details['name']);
 		}
 		return $roles;
 	}
 	
+	public function options_cb_cron_schedule() {
+		$schedules = wp_get_schedules();
+		$arr = array();
+		foreach ( (array) $schedules as $key => $val) {
+			$arr[$key] = $val['display'];
+		}
+		return $arr;	
+	}
 	
 
 	
@@ -1104,10 +1100,12 @@ function remp_get_option( $key = '', $default = null ) {
 
 	$val = $default;
 
-	if ( 'all' == $key ) {
-		$val = $opts;
-	} elseif ( array_key_exists( $key, $opts ) && false !== $opts[ $key ] ) {
-		$val = $opts[ $key ];
+	if ( gettype($opts) === 'array' && !empty($opts) ){
+		if ( 'all' == $key ) {
+			$val = $opts;
+		} elseif ( array_key_exists( $key, $opts ) && false !== $opts[ $key ] ) {
+			$val = $opts[ $key ];
+		}
 	}
 
 	return $val;
@@ -1122,16 +1120,81 @@ remp_admin();
 ?>
 <?php
 /*
-	grunt.concat_in_order.declare('remp_cmb2_field_type_crypt');
+	grunt.concat_in_order.declare('Remp_cron');
 	grunt.concat_in_order.require('init');
 */
 
-function remp_cmb2_field_type_crypt() {
-	if ( ! function_exists( 'cmb2_crypt_render_callback' ) )
-		include_once plugin_dir_path( __FILE__ ) . 'includes/jhotadhari/cmb2_field_type_crypt/cmb2_field_type_crypt.php';
-}
-add_action( 'init', 'remp_cmb2_field_type_crypt' );
 
+class Remp_cron {
+	
+	protected $request;
+	
+	function __construct( $request, $hook ){
+
+		$this->request = $request;
+		$recurrence = $request['cron_schedule'];
+		
+        // delete the task, if the recurrence doesn't match or recurrence doesn't exist
+        if ( $recurrence !== wp_get_schedule( $hook ) || ! array_key_exists( $recurrence, wp_get_schedules() ) ) {
+            wp_clear_scheduled_hook( $hook );
+        }
+        
+        // add task, if not scheduled and recurrence exists
+		if ( ! wp_next_scheduled( $hook ) && array_key_exists( $recurrence, wp_get_schedules() ) ) {
+			wp_schedule_event( time(), $recurrence, $hook );
+		}
+
+		// task callback
+		add_action( $hook, array( $this, 'task_function') );
+	
+	}
+	
+	
+	public function task_function() {
+	  remp_request( $this->request );
+	}
+
+}
+
+
+
+function remp_cron_init(){
+	$requests = remp_get_option( 'request', array() );
+	
+	// add cron tasks
+	$hooks = array();
+	foreach ( $requests as $request ){
+		if ( $request['state'] === 'cron' ){
+			$hook = 'remp_' . $request['id'];
+			$hooks[] = $hook;
+			new Remp_cron( $request, $hook );
+		}
+	}
+	
+	// clear unused cron tasks
+	remp_cron_clear( $hooks );
+	
+}
+add_action( 'init', 'remp_cron_init' );
+
+
+
+function remp_cron_clear( $ignore = array() ){
+
+	$crons = _get_cron_array();
+	foreach( $crons as $cron ){
+		foreach( $cron as $cron_key => $cron_val ){
+			if ( strpos( $cron_key, 'remp_' ) === 0 && strpos( $cron_key, 'remp_' ) !== false ){
+
+				if ( ! in_array( $cron_key, $ignore ) ) {
+					wp_clear_scheduled_hook( $cron_key );
+				}
+				
+			}
+		}
+	}
+
+}
 
 ?>
 <?php
@@ -1287,6 +1350,65 @@ add_action( 'init', 'remp_oauth_init' );
 ?>
 <?php
 /*
+	grunt.concat_in_order.declare('remp_request');
+	grunt.concat_in_order.require('init');
+*/
+
+
+
+// wrapper function to init Remp_Request class
+function remp_request( $request ){
+
+	// skip request if no output
+	if ( ! isset( $request['output_method'] ) || empty( $request['output_method'] ) || $request['output_method'] === null ) return false;
+
+	// params to key val
+	$params = array();
+	if ( isset($request['param']) && !empty($request['param']) ){
+		foreach( $request['param'] as $param ){
+			if ( isset( $param['key'] ) && ! empty( $param['key'] ) ){
+				$params[ $param['key'] ] = $param['val'];
+			}
+		}
+	}
+	
+	// get source
+	$sources = remp_get_option( 'sources', null );
+	foreach( $sources as $source ){
+		if ( $source['id'] == $request['source']) 
+			break;
+	}
+	
+	
+	// get value_map
+	$value_maps = remp_get_option( 'value_map', false );
+	if ( $value_maps ){
+		foreach( $value_maps as $value_map ){
+			if ( $value_map['id'] == $request['value_map']) 
+				break;
+		}
+	} else {
+		$value_map = false;
+	}
+	
+	
+	// run
+	$args = array(
+		'id'			=>	remp_slugify( $request['id'] ),
+		'state'			=>	$request['state'],
+		'source'		=>	$source,
+		'output_method'	=>	$request['output_method'],
+		'value_map'		=>	$value_map,
+		'params'		=>	$params,
+	);
+	
+	$Get = 'Remp_Request' . ( $source['authorization'] == 'none' ? '' : '_' . $source['authorization'] );
+	new $Get( $args );
+
+}
+?>
+<?php
+/*
 	grunt.concat_in_order.declare('Remp_Request');
 	grunt.concat_in_order.require('init');
 */
@@ -1302,18 +1424,27 @@ Class Remp_Request {
 			'state' => '',
 			'source' => array(),
 			'output_method' => array(),
-
 			'value_map' => array(),
-
-			// 'mail' => array(),
-
 			'params' => array(),
 		);	
 		$args = wp_parse_args( $args, $defaults );
 		
+		
+		// get remp_log and last_requests
+		$remp_log = get_option( 'remp_log', array() );
+		$last_requests = array_key_exists( $args['id'], $remp_log ) ? $remp_log[$args['id']] : false;
+		$last_request_time = !empty( $last_requests ) ? key( array_slice( $last_requests, -1, 1, true ) ) : false;
+		
+		// filter the params. useful for cron jobs
+		$args['params'] = apply_filters( "remp_request_{$args['id']}_params", $args['params'], $args, $last_requests, $last_request_time );
+		
+		// set request_url
 		$this->set_request_url( $args['source'], $args['params'] );
 		
+		//  get remote data
 		$response_body_arr = $this->request_url ? $this->get_remote( $this->request_url ) : false;
+		
+		
 		
 		if ( $args['output_method'] == null ) return false;
 		
@@ -1332,26 +1463,36 @@ Class Remp_Request {
 			ob_end_clean();
 			error_log( $log );
 		}		
-		
 
 		// save response
 		if ( in_array('save', $args['output_method']) ){
 			$Import = 'Remp_Import' . '_' . $args['value_map']['object_type'];
 			new $Import( $response_body_arr, $args );
 		}
-
 		
-
+		// save request to log
+		$entry = apply_filters( "remp_log_entry_{$args['id']}", array(), $args );	// eg: add the parameter to the log
+		$log_max = apply_filters( 'remp_log_max', 5 );
+		if ( array_key_exists( $args['id'], $remp_log ) ) {
+			// add log
+			$remp_log[$args['id']][time()] = $entry;
+			// delete old logs
+			if ( count( $remp_log[$args['id']] ) > $log_max ){
+				$remp_log[$args['id']] = 
+				array_slice( $remp_log[$args['id']] , ( $log_max * -1 ), $log_max, true);
+			}
+		} else {
+			// add log
+			$remp_log[$args['id']] = array(
+				time() => $entry
+			);
+		}
+		update_option( 'remp_log', $remp_log );
 		
-
 		
+		// request finished, everything done, do something
+		do_action( "remp_request_finished_{$args['id']}", $args, $remp_log[$args['id']] );
 		
-		
-		
-		
-		
-		
-		// send mail
 	}
 	
 	
@@ -1359,6 +1500,7 @@ Class Remp_Request {
 	protected function set_request_url( $source, $params ) {
 		$this->request_url = add_query_arg( $params, $source['resource_url'] );
 	}
+	
 	
 	
 	protected function get_remote( $request_url ) {
@@ -1370,82 +1512,11 @@ Class Remp_Request {
 		
 		$response_body = wp_remote_retrieve_body( $response );
 		$response_body_arr = json_decode( $response_body, true );
-		// if ( array_key_exists('message', $response_body_arr ) && ! array_key_exists('lead', $response_body_arr )){
-		// 	new Remp_Admin_Notice( remp_array_column_recursive( $response_body_arr, 'messageCode'), true );
-		// 	return false;
-		// }
 		
 		return $response_body_arr;
 	}
 	
 }
-
-
-
-
-
-?>
-<?php
-/*
-	grunt.concat_in_order.declare('zzz_debug');
-	grunt.concat_in_order.require('init');
-*/
-
-function zzz_debug(){
-
-
-// 
-$user_exists = array();
-	
-// $user_exists['user_email'] = false;	
-
-
-
-// if( $a = email_exists( 'email@domain.com' ) ) {
-
-// }
-
-
-
-// var_dump( $a );
-
-// $existing_user_data = get_userdata( 18 );
-$user = new WP_User( 18 );
-
-print('<pre>');
-print_r($user->data);
-
-
-
-var_dump( $user->get('user_nicename') );
-var_dump( $user->get('user_login') );
-var_dump( $user->get('not_set') );
-
-
-
-
-					$result = wp_insert_user( array(
-
-						'ID' => $user->ID,
-						'user_login' => $user->get('user_login'),
-						// 'user_pass' => $user->get('user_pass'),
-						'user_nicename' => 'is_set new',
-
-						'not_set' => 'is_set',
-
-					));
-
-	
-
-					var_dump( $user->get('user_nicename') );
-					var_dump( $user->get('not_set') );
-					var_dump( $result );
-print('</pre>');
-
-
-	
-}
-// add_action('admin_notices','zzz_debug')
 
 
 
@@ -1825,6 +1896,20 @@ function cmb2_tree_sanitize_callback( $override_value, $value ) {
     return $value;
 }
 add_filter( 'cmb2_sanitize_tree', 'cmb2_tree_sanitize_callback', 10, 2 );
+
+
+?>
+<?php
+/*
+	grunt.concat_in_order.declare('remp_cmb2_field_type_crypt');
+	grunt.concat_in_order.require('init');
+*/
+
+function remp_cmb2_field_type_crypt() {
+	if ( ! function_exists( 'cmb2_crypt_render_callback' ) )
+		include_once plugin_dir_path( __FILE__ ) . 'includes/jhotadhari/cmb2_field_type_crypt/cmb2_field_type_crypt.php';
+}
+add_action( 'init', 'remp_cmb2_field_type_crypt' );
 
 
 ?>
@@ -2335,9 +2420,6 @@ Class Remp_Import_user extends Remp_Import {
 		
 		
 		if ( $this->opt_user_exists == 'merge_carefully' ) {
-
-
-		
 
 			$user_id = $user->ID;
 			$user_login = $user->get('user_login');

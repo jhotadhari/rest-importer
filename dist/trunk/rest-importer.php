@@ -3,7 +3,7 @@
 Plugin Name: REST Importer
 Plugin URI: https://github.com/jhotadhari/rest-importer
 Description: Get remote data and save it as posts or users. Customize the way the data gets stored.
-Version: 0.0.1
+Version: 0.1.0
 Author: jhotadhari
 Author URI: http://waterproof-webdesign.info/
 License: GNU General Public License v2 or later
@@ -60,9 +60,23 @@ function remp_print_admin_notice() {
 
 function remp_get_admin_notice() {
 	$plugin_title = 'REST Importer';
-	// $parent_plugin_title = 'WP-CRM by Usability Dynamics';
 	return sprintf(esc_html__( '"%s" plugin requires PHP version %s or greater and cURL enabled!', 'remp' ), $plugin_title, remp_get_required_php_ver());
 }
+
+
+
+
+function remp_plugin_deactivate() {
+
+	remp_cron_clear();
+	
+	if ( remp_get_option( 'deact_delete' , 'no') === 'del_all' ){
+		delete_option( 'remp_options' );
+		delete_option( 'remp_log' );
+	}
+	
+}
+register_deactivation_hook(__FILE__, 'remp_plugin_deactivate');
 
 ?>
 <?php
