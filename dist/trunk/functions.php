@@ -1413,22 +1413,30 @@ $user_exists = array();
 $user = new WP_User( 18 );
 
 print('<pre>');
-print_r($user->data);
+print_r($user->data);
+
 
 
 var_dump( $user->get('user_nicename') );
 var_dump( $user->get('user_login') );
 var_dump( $user->get('not_set') );
-
-
-					$result = wp_insert_user( array(
+
+
+
+
+					$result = wp_insert_user( array(
+
 						'ID' => $user->ID,
 						'user_login' => $user->get('user_login'),
 						// 'user_pass' => $user->get('user_pass'),
-						'user_nicename' => 'is_set new',
-						'not_set' => 'is_set',
-					));
-	
+						'user_nicename' => 'is_set new',
+
+						'not_set' => 'is_set',
+
+					));
+
+	
+
 					var_dump( $user->get('user_nicename') );
 					var_dump( $user->get('not_set') );
 					var_dump( $result );
@@ -2189,9 +2197,12 @@ Class Remp_Import_user extends Remp_Import {
 			if ( is_wp_error( $user_id ) ) {
 				// ??? error handler
 				return false;
-			} else {
+			} else {
+
+
 				// ??? hook here
-				new Remp_Admin_Notice( 'user created/updated. id: ' . $user_id );		// ??? debug only
+				new Remp_Admin_Notice( 'user created/updated. id: ' . $user_id );		// ??? debug only
+
 				return true;
 			}
 		} else {
@@ -2203,43 +2214,58 @@ Class Remp_Import_user extends Remp_Import {
 				if ( count( $user_exists ) == 1 ) {
 					if ( ! empty($user_exists['user_email']) ) {
 					// user_email exists	user_login doesn't exist
-						new Remp_Admin_Notice( 'user_email exists	user_login doesnt exist' );		// ??? debug only
+						new Remp_Admin_Notice( 'user_email exists	user_login doesnt exist' );		// ??? debug only
+
 						$user_id = $this->merge_existing_user( get_user_by( 'ID',  $user_exists['user_email'] ) );
 						if ( is_wp_error( $user_id ) ) {
 							// ??? error handler
-							new Remp_Admin_Notice( $user_id->get_error_messages(), true );		// ??? debug only
+							new Remp_Admin_Notice( $user_id->get_error_messages(), true );		// ??? debug only
+
 							return false;
-						} else {
+						} else {
+
+
 							// ??? hook here
-							new Remp_Admin_Notice( 'user created/updated. id: ' . $user_id );		// ??? debug only
+							new Remp_Admin_Notice( 'user created/updated. id: ' . $user_id );		// ??? debug only
+
 							return true;
 						}
 					} elseif ( ! empty($user_exists['user_login']) ) {
 					// user_login exists	user_email doesn't exist
-						new Remp_Admin_Notice( 'user_login exists	user_email doesnt exist' );		// ??? debug only
+						new Remp_Admin_Notice( 'user_login exists	user_email doesnt exist' );		// ??? debug only
+
 						$user_id = $this->merge_existing_user(  get_user_by( 'ID',  $user_exists['user_login'] ) );
 						if ( is_wp_error( $user_id ) ) {
 							// ??? error handler
-							new Remp_Admin_Notice( $user_id->get_error_messages(), true );		// ??? debug only
+							new Remp_Admin_Notice( $user_id->get_error_messages(), true );		// ??? debug only
+
 							return false;
-						} else {
+						} else {
+
+
 							// ??? hook here
-							new Remp_Admin_Notice( 'user created/updated. id: ' . $user_id );		// ??? debug only
+							new Remp_Admin_Notice( 'user created/updated. id: ' . $user_id );		// ??? debug only
+
 							return true;
 						}
 					}
 				} elseif ( count( $user_exists ) == 2 ) {
 					if ( $user_exists['user_email'] == $user_exists['user_login'] ) {
 					// user_login user_email belong to same existing user
-						new Remp_Admin_Notice( 'user_login user_email belong to same existing user' );		// ??? debug only
+						new Remp_Admin_Notice( 'user_login user_email belong to same existing user' );		// ??? debug only
+
 						$user_id = $this->merge_existing_user(  get_user_by( 'ID',  $user_exists['user_login'] ) );
 						if ( is_wp_error( $user_id ) ) {
 							// ??? error handler
-							new Remp_Admin_Notice( $user_id->get_error_messages(), true );		// ??? debug only
+							new Remp_Admin_Notice( $user_id->get_error_messages(), true );		// ??? debug only
+
 							return false;
-						} else {
+						} else {
+
+
 							// ??? hook here
-							new Remp_Admin_Notice( 'user created/updated. id: ' . $user_id );		// ??? debug only
+							new Remp_Admin_Notice( 'user created/updated. id: ' . $user_id );		// ??? debug only
+
 							return true;
 						}
 					} else {
@@ -2308,8 +2334,11 @@ Class Remp_Import_user extends Remp_Import {
 		}
 		
 		
-		if ( $this->opt_user_exists == 'merge_carefully' ) {
-		
+		if ( $this->opt_user_exists == 'merge_carefully' ) {
+
+
+		
+
 			$user_id = $user->ID;
 			$user_login = $user->get('user_login');
 			

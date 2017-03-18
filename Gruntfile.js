@@ -448,9 +448,15 @@ module.exports = function(grunt){
 			},
 			commit: {
 				options: {
-					m: 'version <%= pkg.version %>\n\n<%= commit_msg %>'
+					m: 'v<%= pkg.version %>\n\n<%= commit_msg %>'
 				}
-			}
+			},	
+			tag: {
+				options: {
+					a: ['v<%= pkg.version %>'],
+					m: ['<%= commit_msg %>']
+				}
+			},
 		},
 		
 		
@@ -860,6 +866,7 @@ module.exports = function(grunt){
 				grunt.task.run([
 					'git:add',
 					'git:commit',
+					'git:tag',
 				]);
 
 			});

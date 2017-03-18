@@ -40,8 +40,15 @@ function remp_print_admin_notice() {
 
 function remp_get_admin_notice() {
 	$plugin_title = 'REST Importer';
-	// $parent_plugin_title = 'WP-CRM by Usability Dynamics';
 	return sprintf(esc_html__( '"%s" plugin requires PHP version %s or greater and cURL enabled!', 'remp' ), $plugin_title, remp_get_required_php_ver());
 }
+
+
+
+
+function remp_plugin_deactivate() {
+	remp_cron_clear();
+}
+register_deactivation_hook(__FILE__, 'remp_plugin_deactivate');
 
 ?>
