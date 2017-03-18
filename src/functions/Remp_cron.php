@@ -39,7 +39,7 @@ class Remp_cron {
 
 
 function remp_cron_init(){
-	$requests = remp_get_option( 'request' );
+	$requests = remp_get_option( 'request', array() );
 	
 	// add cron tasks
 	$hooks = array();

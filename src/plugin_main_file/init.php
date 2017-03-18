@@ -47,7 +47,14 @@ function remp_get_admin_notice() {
 
 
 function remp_plugin_deactivate() {
+
 	remp_cron_clear();
+	
+	if ( remp_get_option( 'deact_delete' , 'no') === 'del_all' ){
+		delete_option( 'remp_options' );
+		delete_option( 'remp_log' );
+	}
+	
 }
 register_deactivation_hook(__FILE__, 'remp_plugin_deactivate');
 

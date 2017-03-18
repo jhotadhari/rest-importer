@@ -23,7 +23,6 @@ Completly free. Fork it on github (https://github.com/jhotadhari/rest-importer).
 
 
 ## Coming soon:
-* Import as cron job 
 * More filter and hooks 
 * Wiki and documentation 
 * More authorisation types 
@@ -40,11 +39,13 @@ Completly free. Fork it on github (https://github.com/jhotadhari/rest-importer).
 * OAuth 1 PHP Library (https://github.com/EHER/OAuth)
 * jstree (https://github.com/vakata/jstree/)
 * jsTreeGrid (https://github.com/deitch/jstree-grid)
+* This Plugin is based on the generator-pluginboilerplate (https://github.com/jhotadhari/generator-pluginboilerplate)
 
 
 ## Requirements:
 * php 5.6
 * cURL
+* JavaScript needs to be enebled for the settings page (if all settings are done, you may disable js again)
 
 
 == Installation ==

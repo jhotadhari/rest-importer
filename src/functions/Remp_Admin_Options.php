@@ -28,6 +28,9 @@ class Remp_Admin_Options {
 				'save_button' => 'Requests/Import'
 				)
 		),
+		'settings' => array(
+			'title' => 'Settings',
+		),
 	);
 	
 	/**
@@ -319,7 +322,17 @@ class Remp_Admin_Options {
 		) );
 		
 		
-
+		$cmb->add_field( array(
+			'id'   => 'mapping_bug_info',
+			'type' => 'info',
+			'attributes' => array(
+				'required'    => false,
+				'paragraph' => false,
+				'info' => 
+					__( 'Hey sorry small bug here, will fix that soon.', 'remp' ) . '<br>'  .
+					__( 'When you add a new map, just type in the id and save (button at the bottom of the page)', 'remp' ),
+			)
+		) );
 		
 		
 		
@@ -584,7 +597,6 @@ class Remp_Admin_Options {
 		add_action( "cmb2_save_options-page_fields_{$metabox_id}", array( $this, 'settings_notices' ), 10, 2 );
 
 		$cmb = new_cmb2_box( array(
-			// 'id'         => $this->metabox_id,
 			'id'         => $metabox_id,
 			'hookup'     => false,
 			'cmb_styles' => false,
@@ -759,6 +771,58 @@ class Remp_Admin_Options {
 
 	}
 	
+	
+	
+	/**
+	 * Add the options metabox to the array of metaboxes
+	 * @since  0.1.0
+	 */
+	public function add_options_page_metabox__settings() {
+		$tab = 'settings';
+		
+		$metabox_id = $this->key . '_' . $tab;
+		
+		// hook in our save notices
+		add_action( "cmb2_save_options-page_fields_{$metabox_id}", array( $this, 'settings_notices' ), 10, 2 );
+
+		$cmb = new_cmb2_box( array(
+			'id'         => $metabox_id,
+			'hookup'     => false,
+			'cmb_styles' => false,
+			'show_on'    => array(
+				// These are important, don't remove
+				'key'   => 'options-page',
+				'value' => array( $this->key, )
+			),
+		) );
+		
+		
+		
+		$cmb->add_field( array(
+			'name' => __( 'Deactivation Settings', 'remp' ),
+			'id'   => 'title',
+			'type' => 'title',
+		) );
+		
+		
+		$cmb->add_field( array(
+			'name' => __( 'Delete Settings and cron log', 'remp' ),
+			'id'   => 'deact_delete',
+			'description'   =>
+				__( 'Do you want to delete the REST Importer settings and cron log on plugin deactivation?', 'remp' ) . '<br>' . 
+				__( 'This will not delete the imported Posts and Users.', 'remp' ),
+			'type' => 'radio',
+			'default' => 'no',
+			'options' => array( 
+				'no'			=> __( 'No, remember everything for next time.', 'remp' ),
+				'del_all'   => __( 'Delete all Settings and cron log.', 'remp' ),
+			),
+		) );		
+		
+		
+		
+	}
+	
 	protected function get_metabox_by_nonce( $nonce, $return = 'metabox' ) {
 		if (! $nonce || ! strpos($nonce, 'nonce_CMB2php') === 0 )
 			return false;
@@ -783,10 +847,6 @@ class Remp_Admin_Options {
 	}
 	
 	public function handle_submission() {
-		
-		// if (! empty($_POST)){
-		// 	die(print_r($_POST));
-		// }
 		
 		// is form submission?
 		if ( empty( $_POST ) || ! isset( $_POST['submit-cmb'], $_POST['object_id'] ) ) return false;
@@ -813,22 +873,8 @@ class Remp_Admin_Options {
 			case 'import':
 				if ( empty($_POST['request']) ) return;
 				
-				// if (! empty($_POST['request'])){
-					// die(print_r($_POST['request']));
-				// }
-				
 				// foreach ( $_POST['request'] as $request_k => $request_v ){
 				foreach ( $_POST['request'] as $request ){
-				
-					// $request['id']
-					// $request['state']
-					// $request['source']
-
-					// $request['output_method']
-					// $request['value_map']
-					// $request['mail']
-					
-					// $request['param']
 				
 					// skip request if disabled
 					if ( ! isset( $request['state'] ) || empty( $request['state'] ) || $request['state'] === 'disabled' ) continue;
@@ -836,85 +882,13 @@ class Remp_Admin_Options {
 					// skip request if no output
 					if ( ! isset( $request['output_method'] ) || empty( $request['output_method'] ) || $request['output_method'] === null ) continue;
 					
-					
 					// if state do it now, do request 
 					if ( $request['state'] === 'save' ){
-					
 						remp_request( $request );
-					
-					
-										
 					}
-
-					
-
-
-
-					/*
-
-					if ( isset( $request['state'] ) || !empty( $request['state'] ) || $request['state'] === 'save' ) {
-
-
-
-					
-						// params to key val
-						$params = array();
-						foreach( $request['param'] as $param ){
-							if ( isset( $param['key'] ) && ! empty( $param['key'] ) ){
-								$params[ $param['key'] ] = $param['val'];
-							}
-						}
-						
-						// get source
-						$sources = cmb2_get_option( $this->key, 'sources', null );
-						foreach( $sources as $source ){
-							if ( $source['id'] == $request['source']) 
-								break;
-						}
-						
-						
-						// get value_map
-						$value_maps = cmb2_get_option( $this->key, 'value_map', false );
-						if ( $value_maps ){
-							foreach( $value_maps as $value_map ){
-								if ( $value_map['id'] == $request['value_map']) 
-									break;
-							}
-						} else {
-							$value_map = false;
-						}
-						
-						
-						
-						// run
-						$args = array(
-							'id'			=>	remp_slugify( $request['id'] ),
-							'state'			=>	$request['state'],
-							'source'		=>	$source,
-							'output_method'	=>	$request['output_method'],
-							'value_map'		=>	$value_map,
-	
-							// 'mail'		=>	$request['output_method'],
-	
-							'params'		=>	$params,
-						);
-						$Get = 'Remp_Request' . ( $source['authorization'] == 'none' ? '' : '_' . $source['authorization'] );
-						new $Get( $args );
-						
-
-					}
-
-					*/
 					
 				}
 
-				// query paramters
-				// $params = array();
-				// $params['from'] = date("Y-m-d\TH:i:s", $sanitized_values['from']);
-				// $params['to'] = date("Y-m-d\TH:i:s", $sanitized_values['to']);
-				// $params['test'] = array_key_exists( 'test', $sanitized_values) && $sanitized_values['test'] === 'on' ? 'true' : 'false';
-				// new Remp_Request( $params );
-				
 				break;
 				
 			default:
@@ -922,11 +896,7 @@ class Remp_Admin_Options {
 				
 		}
 		
-
-		
 	}
-	
-	
 	
 	
 	
@@ -954,7 +924,7 @@ class Remp_Admin_Options {
 	public function options_cb_role() {
 		$editable_roles = get_editable_roles();
 		$roles = array();
-		foreach ($editable_roles as $role => $details) {
+		foreach ( (array) $editable_roles as $role => $details) {
 			if ( $role == 'administrator' ) continue;
 			$roles[esc_attr($role)] = translate_user_role($details['name']);
 		}
@@ -964,7 +934,7 @@ class Remp_Admin_Options {
 	public function options_cb_cron_schedule() {
 		$schedules = wp_get_schedules();
 		$arr = array();
-		foreach ($schedules as $key => $val) {
+		foreach ( (array) $schedules as $key => $val) {
 			$arr[$key] = $val['display'];
 		}
 		return $arr;	
@@ -1048,10 +1018,12 @@ function remp_get_option( $key = '', $default = null ) {
 
 	$val = $default;
 
-	if ( 'all' == $key ) {
-		$val = $opts;
-	} elseif ( array_key_exists( $key, $opts ) && false !== $opts[ $key ] ) {
-		$val = $opts[ $key ];
+	if ( gettype($opts) === 'array' && !empty($opts) ){
+		if ( 'all' == $key ) {
+			$val = $opts;
+		} elseif ( array_key_exists( $key, $opts ) && false !== $opts[ $key ] ) {
+			$val = $opts[ $key ];
+		}
 	}
 
 	return $val;

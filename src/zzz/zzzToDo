@@ -9,25 +9,4 @@ Everything else will be skipped
 	function missing to skip
 
 
-add hooks and filter
-
-
-
-
-cron job for import
-
-
-on deactivation
-	// https://codex.wordpress.org/Function_Reference/wp_schedule_event
-	Don't forget to clean the scheduler on deactivation:
-	
-	register_deactivation_hook(__FILE__, 'my_deactivation');
-	
-	function my_deactivation() {
-		wp_clear_scheduled_hook('my_hourly_event');
-	}
-
-	
-	delete options
-		remp_options
-		remp_log
+add hooks and filters
