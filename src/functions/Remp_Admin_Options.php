@@ -249,9 +249,6 @@ class Remp_Admin_Options {
 			'repeatable' => false,
 			'attributes' => array(
 				'required'    => true,
-			),
-			'attributes' => array(
-				'required'    => true,
 			)
 		) );	
 		
@@ -314,24 +311,21 @@ class Remp_Admin_Options {
 	
 		$cmb->add_field( array(
 			'name' => __( 'How to store the response in the database?', 'remp' ),
-			'description' =>
-				__( 'Are you confused?', 'remp' ) . '<br>' . 
-				__( 'Check out response example at the bottom of the page.', 'remp' ),
 			'id'   => 'title',
 			'type' => 'title',
 		) );
 		
 		
 		$cmb->add_field( array(
-			'id'   => 'mapping_bug_info',
+			'id'   => 'mapping_info_wiki',
 			'type' => 'info',
 			'attributes' => array(
 				'required'    => false,
-				'paragraph' => false,
-				'info' => 
-					__( 'Hey sorry small bug here, will fix that soon.', 'remp' ) . '<br>'  .
-					__( 'When you add a new map, just type in the id and save (button at the bottom of the page)', 'remp' ),
-			)
+				'paragraph' => true,
+			),
+			'info' => 
+				'<p>' . __( 'Are you confused?', 'remp' ) . ' ' . __( 'Check out the wiki:', 'remp' ) . ' <a href="https://github.com/jhotadhari/rest-importer/wiki/Value-Mapping" target="_blank">Value Mapping</a>' . '</p>' . 
+				'<p>' . __( 'Want a real example? Switch to the Import tab, do some test requests and print them as admin notice', 'remp' ) . '</p>',
 		) );
 		
 		
@@ -459,14 +453,13 @@ class Remp_Admin_Options {
 				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'object_type' ) ),
 				'data-conditional-value' => 'user',
 				'paragraph' => false,
-				'info' => 
-					__( 'user_email is required!', 'remp' ) . '<br>'  .
-					// __('Make sure to assign an email address to the user.', 'remp' ) . '<br>'  .
-
-					__( 'If no user_login is set, the user_mail or something random will be used instead.', 'remp' ) . '<br>'  .
-					__( 'The user_login is quite fix and can\'t be changed later without magic.', 'remp' ) . '<br>'  .
-					__( 'If no valid email is set, import will skip this user.', 'remp' ),
-			)
+			),
+			'info' => 
+				__( 'user_email is required!', 'remp' ) . '<br>'  .
+				__( 'If no user_login is set, the user_mail or something random will be used instead.', 'remp' ) . '<br>'  .
+				__( 'The user_login is quite fix and can\'t be changed later without magic.', 'remp' ) . '<br>'  .
+				__( 'If no valid email is set, import will skip this user.', 'remp' ),
+			
 		) );
 		
 		$cmb->add_group_field( $group_field_id, array(
@@ -481,6 +474,7 @@ class Remp_Admin_Options {
 				'merge_overwride' => __( 'Merge rude and overwride', 'remp' ),
 			),
 			'attributes' => array(
+				'required'    => true,
 				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'object_type' ) ),
 				'data-conditional-value' => 'user',
 			)
@@ -521,10 +515,11 @@ class Remp_Admin_Options {
 				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'object_type' ) ),
 				'data-conditional-value' => 'post',
 				'paragraph' => false,
-				'info' => 
-					__( 'Everything else will be skipped', 'remp' ) . ':<br>'  .
-					remp_get_valid_option_keys( 'post', true ),
-			)
+			),
+			'info' => 
+				__( 'Everything else will be skipped', 'remp' ) . ':<br>'  .
+				remp_get_valid_option_keys( 'post', true ),
+			
 		) );		
 		
 		$cmb->add_group_field( $group_field_id, array(
@@ -539,10 +534,10 @@ class Remp_Admin_Options {
 				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'object_type' ) ),
 				'data-conditional-value' => 'user',
 				'paragraph' => false,
-				'info' => 
-					__( 'Everything else will be skipped (user_email is required!)', 'remp' ) . ':<br>'  .
-					remp_get_valid_option_keys( 'user', true ),
-			)
+			),
+			'info' => 
+				__( 'Everything else will be skipped (user_email is required!)', 'remp' ) . ':<br>'  .
+				remp_get_valid_option_keys( 'user', true ),
 		) );		
 		
 		
@@ -563,24 +558,6 @@ class Remp_Admin_Options {
 			'id'   => 'map_tree',
 			'type' => 'tree',
 		) );
-		
-
-		
-		
-		
-		
-		
-		
-		$cmb->add_field( array(
-			'name' => __( 'Example respond', 'remp' ),
-			'id'   => 'exp_respond',
-			'description' => 
-				__( 'This is just an example of a response tree.', 'remp' ) . '<br>' . 
-				__( 'Want a real one? Switch to the Import tab, do some test requests and print them as admin notice.', 'remp' ),
-			'type' => 'exp_respond',
-		) );		
-		
-		
 		
 	}
 	
@@ -696,9 +673,8 @@ class Remp_Admin_Options {
 				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'state' ) ),
 				'data-conditional-value' => 'cron',
 				'paragraph' => false,
-				'info' => 
-					__("It's wp_cron, so it won't be in time but will be done sometime.", "remp" ),
-			)
+			),
+			'info' => __("It's wp_cron, so it won't be in time but will be done sometime.", "remp" ),
 		) );			
 		
 		$cmb->add_group_field( $group_field_id, array(

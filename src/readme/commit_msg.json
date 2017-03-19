@@ -1,3 +1,6 @@
 {
-  "1": "Edit Readme"
+  "1": "fix: fatal error on Request save and no sources existing;",
+  "2": "fix: the tree input works now for repeatable groups;",
+  "3": "some examples removed, moved to the wiki;",
+  "4": "Remp_Import_{}::insert_object: skip object keys if not valid;"
 }

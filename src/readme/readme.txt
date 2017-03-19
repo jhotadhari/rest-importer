@@ -8,6 +8,8 @@ UI to customize the import. Shape any kind of json response to fit your desired 
 
 > REST Importer on [GitHub](https://github.com/jhotadhari/rest-importer)
 
+> REST Importer [wiki](https://github.com/jhotadhari/rest-importer/wiki)
+
 = How to use =
 
 * Make a backup of your database! In case you import to much trash to wrong places and assign the values to wrong fields. 

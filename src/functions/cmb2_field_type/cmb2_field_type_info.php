@@ -6,17 +6,17 @@
 
 function cmb2_info_render_callback( $field, $escaped_value, $object_id, $object_type, $field_type_object ) {
 	
-	// $info = $field_type_object->field->args( 'description' );
-	$info = array_key_exists('info', $field_type_object->field->args( 'attributes' ) ) ?  $field_type_object->field->args( 'attributes' )['info'] : false;
+	$info = $field_type_object->field->args( 'info' );
+	
 	$paragraph = array_key_exists('paragraph', $field_type_object->field->args( 'attributes' ) ) ?  $field_type_object->field->args( 'attributes' )['paragraph'] : false;
-	
 	$tag = $paragraph ? 'p' : 'span';
-	$info = strlen($info) > 0 ? sprintf( "\n" . '<%1$s class="cmb2-metabox-info">%2$s</%1$s>' . "\n", $tag, $info ) : '';
 	
-	echo $info;
+	echo !empty($info) ? sprintf( "\n" . '<%1$s class="cmb2-metabox-info">%2$s</%1$s>' . "\n", $tag, $info ) : '';
 	
-	// hidden filed. nonsence, just to set data-conditional
-	echo $field_type_object->input( array( 'type' => 'hidden' ) );
+	// hidden field. nonsence, just to set data-conditional
+	echo $field_type_object->input( array(
+		'type' => 'hidden',
+		) );
 	
 	// no need to echo desc, the hidden input does it already
 	// echo $field_type_object->_desc( false );

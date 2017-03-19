@@ -67,28 +67,17 @@ function remp_get_valid_option_keys( $object_type = null, $markup = false ){
 
 	}
 	
-	
-			
 	if ( $markup && $valids ) {
-		
-$return .= '<ul>';
+		$return .= '<ul>';
 		foreach( $valids as $valid ){
-
-
-			
-$return .= '<li>' . $valid . '</li>';
+			$return .= '<li>' . $valid . '</li>';
 		}
-
-		
-$return .= '</ul>';
+		$return .= '</ul>';
 	} else {
-
 		$return = $valids;
 	}
 	
-	
 	return $return;
-	
 	
 }
 

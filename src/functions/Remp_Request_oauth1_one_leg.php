@@ -21,7 +21,7 @@ Class Remp_Request_oauth1_one_leg extends Remp_Request {
 		if (! isset( $consumer_key ) ) $error->add( 'remp', 'No consumer key is set!' );
 		if (! isset( $consumer_secret ) ) $error->add( 'remp', 'No consumer secret is set!' );
 		if ( count( $error->get_error_messages() ) > 0 ){
-			new Remp_Admin_Notice( $error->get_error_messages(), true );
+			new Remp_Admin_Notice( $error->get_error_messages(), true , true );
 			return false;
 		}
 		

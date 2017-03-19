@@ -8,9 +8,49 @@
 
 // wrapper function to init Remp_Request class
 function remp_request( $request ){
+	
+	$error = new WP_Error();
+	
+	if ( ! isset( $request['id'] ) || empty( $request['id'] ) || $request['id'] === null ){
+		$request['id'] = 'No Request ID';
+		$error->add( 'remp', 'REST Importer: ' . $request['id'] );
+	}
 
 	// skip request if no output
-	if ( ! isset( $request['output_method'] ) || empty( $request['output_method'] ) || $request['output_method'] === null ) return false;
+	if ( ! isset( $request['output_method'] ) || empty( $request['output_method'] ) || $request['output_method'] === null ){
+		$error->add( 'remp', 'REST Importer: No output method for: ' . $request['id']  );
+	}
+	
+	// get source
+	$sources = remp_get_option( 'sources', false );
+	if ( $sources && isset( $request['source'] ) ){
+		foreach( $sources as $source ){
+			if ( $source['id'] == $request['source']) 
+				break;
+		}
+	} else {
+		$error->add( 'remp', 'REST Importer: No sources for: ' . $request['id']  );
+	}
+	
+	// get value_map
+	$value_maps = remp_get_option( 'value_map', false );
+	if ( isset( $request['value_map'] ) && $value_maps ){
+		foreach( $value_maps as $value_map ){
+			if ( $value_map['id'] == $request['value_map']) 
+				break;
+		}
+	} else {
+		$value_map = false;
+		if ( in_array('save', $request['output_method']) ){
+			$error->add( 'remp', 'REST Importer: Value Map is required if you want to save the response. Request: ' . $request['id']  );
+		}
+	}
+	
+	// if errors ...
+	if ( count( $error->get_error_messages() ) > 0 ){
+		new Remp_Admin_Notice( $error->get_error_messages(), true , true );
+		return false;
+	}
 
 	// params to key val
 	$params = array();
@@ -21,26 +61,6 @@ function remp_request( $request ){
 			}
 		}
 	}
-	
-	// get source
-	$sources = remp_get_option( 'sources', null );
-	foreach( $sources as $source ){
-		if ( $source['id'] == $request['source']) 
-			break;
-	}
-	
-	
-	// get value_map
-	$value_maps = remp_get_option( 'value_map', false );
-	if ( $value_maps ){
-		foreach( $value_maps as $value_map ){
-			if ( $value_map['id'] == $request['value_map']) 
-				break;
-		}
-	} else {
-		$value_map = false;
-	}
-	
 	
 	// run
 	$args = array(

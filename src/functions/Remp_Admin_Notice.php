@@ -8,10 +8,12 @@ Class Remp_Admin_Notice {
 
 
 	protected $admin_notice = '';
+	protected $to_log = false;
 
 
-	function __construct( $notice, $is_error = false ) {
+	function __construct( $notice, $is_error = false, $to_log = false ) {
 		$this->admin_notice = $this->set_admin_notice( $notice, $is_error );
+		$this->to_log = $to_log;
 		add_action( 'admin_notices', array( $this, 'print_admin_notice') );
 	}
 	
@@ -47,6 +49,10 @@ Class Remp_Admin_Notice {
 	
 	public function print_admin_notice(){
 		print( $this->admin_notice );
+		
+		if ( $this->to_log ){
+			error_log( $this->admin_notice );
+		}
 	}
 
 

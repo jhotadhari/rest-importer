@@ -19,6 +19,8 @@ UI to customize the import. Shape any kind of json response to fit your desired 
 
 > REST Importer on [GitHub](https://github.com/jhotadhari/rest-importer)
 
+> REST Importer [wiki](https://github.com/jhotadhari/rest-importer/wiki)
+
 = How to use =
 
 * Make a backup of your database! In case you import to much trash to wrong places and assign the values to wrong fields. 
@@ -72,6 +74,12 @@ Go to "Tools" -> "REST Importer".
 This Plugin is still in early development. Reality might be in movement.
 
 == Changelog ==
+
+= 0.1.2 =
+fix: fatal error on Request save and no sources existing;
+fix: the tree input works now for repeatable groups;
+some examples removed, moved to the wiki;
+Remp_Import_{}::insert_object: skip object keys if not valid;
 
 = 0.1.1 =
 Edit Readme

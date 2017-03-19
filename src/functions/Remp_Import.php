@@ -62,14 +62,14 @@ Class Remp_Import {
 		// map_tree to array
 		$map_tree_arr = json_decode( $map_tree, true );
 		if ( $map_tree_arr === null ){
-			new Remp_Admin_Notice( 'something went wrong parsing the map tree', true );
+			new Remp_Admin_Notice( 'something went wrong parsing the map tree', true , true );
 			return false;
 		}
 		// does map_tree has nodes?
 		if ( array_key_exists( 'children', $map_tree_arr[0] ) ) {
 			$this->map_tree = $map_tree_arr[0]['children'];
 		} else {
-			new Remp_Admin_Notice( 'No nodes in map tree?', true );
+			new Remp_Admin_Notice( 'No nodes in map tree?', true , true );
 			return false;		
 		}
 	}

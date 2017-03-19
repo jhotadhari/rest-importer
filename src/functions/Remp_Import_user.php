@@ -27,8 +27,17 @@ Class Remp_Import_user extends Remp_Import {
 	
 	
 	protected function insert_object( $obj ){
+		
+		// skip keys if not valid
+		$valids = remp_get_valid_option_keys( 'user' );
+		$obj_data = $this->obj_data;
+		foreach ( $obj_data as $key => $val ){
+			if ( ! in_array( $key, $valids ) ){
+				unset( $obj_data[$key] );
+			}
+		}
 
-		$this->obj_data = wp_parse_args( $this->obj_data, $this->object_defaults );
+		$this->obj_data = wp_parse_args( $obj_data, $this->object_defaults );
 		$this->obj_meta = wp_parse_args( $this->obj_meta, $this->object_meta_defaults );
 		
 		// is email set 

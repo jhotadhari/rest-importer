@@ -148,7 +148,7 @@ jQuery( document ).ready( function( $ ) {
 	
 	
 	// init tree
-	function init_tree( ){
+	function init_tree(){
 		// $('.cmb-type-tree .cmb2-tree-wrapper > .jstree').each(function(){
 		$('.cmb-type-tree .cmb2-tree-wrapper ').each(function(){
 			
@@ -181,14 +181,7 @@ jQuery( document ).ready( function( $ ) {
 	
 	
 	// init on page load
-	init_tree().bind('delete_node.jstree', function (e, data) {
-		// Check medatada, assuming that root's parent_id is NULL:
-		if (data.rslt.obj.attr('parent_id') === null) {
-		   alert('Root folder is here to stay.');
-		   e.stopImmediatePropagation();
-		   return false;
-		}
-	});
+	init_tree();
 
 	// init on cmb2_add_row
 	var cmb = window.CMB2;

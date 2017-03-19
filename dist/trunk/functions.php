@@ -35,10 +35,12 @@ Class Remp_Admin_Notice {
 
 
 	protected $admin_notice = '';
+	protected $to_log = false;
 
 
-	function __construct( $notice, $is_error = false ) {
+	function __construct( $notice, $is_error = false, $to_log = false ) {
 		$this->admin_notice = $this->set_admin_notice( $notice, $is_error );
+		$this->to_log = $to_log;
 		add_action( 'admin_notices', array( $this, 'print_admin_notice') );
 	}
 	
@@ -74,6 +76,10 @@ Class Remp_Admin_Notice {
 	
 	public function print_admin_notice(){
 		print( $this->admin_notice );
+		
+		if ( $this->to_log ){
+			error_log( $this->admin_notice );
+		}
 	}
 
 
@@ -331,9 +337,6 @@ class Remp_Admin_Options {
 			'repeatable' => false,
 			'attributes' => array(
 				'required'    => true,
-			),
-			'attributes' => array(
-				'required'    => true,
 			)
 		) );	
 		
@@ -396,24 +399,21 @@ class Remp_Admin_Options {
 	
 		$cmb->add_field( array(
 			'name' => __( 'How to store the response in the database?', 'remp' ),
-			'description' =>
-				__( 'Are you confused?', 'remp' ) . '<br>' . 
-				__( 'Check out response example at the bottom of the page.', 'remp' ),
 			'id'   => 'title',
 			'type' => 'title',
 		) );
 		
 		
 		$cmb->add_field( array(
-			'id'   => 'mapping_bug_info',
+			'id'   => 'mapping_info_wiki',
 			'type' => 'info',
 			'attributes' => array(
 				'required'    => false,
-				'paragraph' => false,
-				'info' => 
-					__( 'Hey sorry small bug here, will fix that soon.', 'remp' ) . '<br>'  .
-					__( 'When you add a new map, just type in the id and save (button at the bottom of the page)', 'remp' ),
-			)
+				'paragraph' => true,
+			),
+			'info' => 
+				'<p>' . __( 'Are you confused?', 'remp' ) . ' ' . __( 'Check out the wiki:', 'remp' ) . ' <a href="https://github.com/jhotadhari/rest-importer/wiki/Value-Mapping" target="_blank">Value Mapping</a>' . '</p>' . 
+				'<p>' . __( 'Want a real example? Switch to the Import tab, do some test requests and print them as admin notice', 'remp' ) . '</p>',
 		) );
 		
 		
@@ -541,14 +541,13 @@ class Remp_Admin_Options {
 				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'object_type' ) ),
 				'data-conditional-value' => 'user',
 				'paragraph' => false,
-				'info' => 
-					__( 'user_email is required!', 'remp' ) . '<br>'  .
-					// __('Make sure to assign an email address to the user.', 'remp' ) . '<br>'  .
-
-					__( 'If no user_login is set, the user_mail or something random will be used instead.', 'remp' ) . '<br>'  .
-					__( 'The user_login is quite fix and can\'t be changed later without magic.', 'remp' ) . '<br>'  .
-					__( 'If no valid email is set, import will skip this user.', 'remp' ),
-			)
+			),
+			'info' => 
+				__( 'user_email is required!', 'remp' ) . '<br>'  .
+				__( 'If no user_login is set, the user_mail or something random will be used instead.', 'remp' ) . '<br>'  .
+				__( 'The user_login is quite fix and can\'t be changed later without magic.', 'remp' ) . '<br>'  .
+				__( 'If no valid email is set, import will skip this user.', 'remp' ),
+			
 		) );
 		
 		$cmb->add_group_field( $group_field_id, array(
@@ -563,6 +562,7 @@ class Remp_Admin_Options {
 				'merge_overwride' => __( 'Merge rude and overwride', 'remp' ),
 			),
 			'attributes' => array(
+				'required'    => true,
 				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'object_type' ) ),
 				'data-conditional-value' => 'user',
 			)
@@ -603,10 +603,11 @@ class Remp_Admin_Options {
 				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'object_type' ) ),
 				'data-conditional-value' => 'post',
 				'paragraph' => false,
-				'info' => 
-					__( 'Everything else will be skipped', 'remp' ) . ':<br>'  .
-					remp_get_valid_option_keys( 'post', true ),
-			)
+			),
+			'info' => 
+				__( 'Everything else will be skipped', 'remp' ) . ':<br>'  .
+				remp_get_valid_option_keys( 'post', true ),
+			
 		) );		
 		
 		$cmb->add_group_field( $group_field_id, array(
@@ -621,10 +622,10 @@ class Remp_Admin_Options {
 				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'object_type' ) ),
 				'data-conditional-value' => 'user',
 				'paragraph' => false,
-				'info' => 
-					__( 'Everything else will be skipped (user_email is required!)', 'remp' ) . ':<br>'  .
-					remp_get_valid_option_keys( 'user', true ),
-			)
+			),
+			'info' => 
+				__( 'Everything else will be skipped (user_email is required!)', 'remp' ) . ':<br>'  .
+				remp_get_valid_option_keys( 'user', true ),
 		) );		
 		
 		
@@ -645,24 +646,6 @@ class Remp_Admin_Options {
 			'id'   => 'map_tree',
 			'type' => 'tree',
 		) );
-		
-
-		
-		
-		
-		
-		
-		
-		$cmb->add_field( array(
-			'name' => __( 'Example respond', 'remp' ),
-			'id'   => 'exp_respond',
-			'description' => 
-				__( 'This is just an example of a response tree.', 'remp' ) . '<br>' . 
-				__( 'Want a real one? Switch to the Import tab, do some test requests and print them as admin notice.', 'remp' ),
-			'type' => 'exp_respond',
-		) );		
-		
-		
 		
 	}
 	
@@ -778,9 +761,8 @@ class Remp_Admin_Options {
 				'data-conditional-id'    => wp_json_encode( array( $group_field_id, 'state' ) ),
 				'data-conditional-value' => 'cron',
 				'paragraph' => false,
-				'info' => 
-					__("It's wp_cron, so it won't be in time but will be done sometime.", "remp" ),
-			)
+			),
+			'info' => __("It's wp_cron, so it won't be in time but will be done sometime.", "remp" ),
 		) );			
 		
 		$cmb->add_group_field( $group_field_id, array(
@@ -1261,14 +1243,14 @@ Class Remp_Import {
 		// map_tree to array
 		$map_tree_arr = json_decode( $map_tree, true );
 		if ( $map_tree_arr === null ){
-			new Remp_Admin_Notice( 'something went wrong parsing the map tree', true );
+			new Remp_Admin_Notice( 'something went wrong parsing the map tree', true , true );
 			return false;
 		}
 		// does map_tree has nodes?
 		if ( array_key_exists( 'children', $map_tree_arr[0] ) ) {
 			$this->map_tree = $map_tree_arr[0]['children'];
 		} else {
-			new Remp_Admin_Notice( 'No nodes in map tree?', true );
+			new Remp_Admin_Notice( 'No nodes in map tree?', true , true );
 			return false;		
 		}
 	}
@@ -1358,9 +1340,49 @@ add_action( 'init', 'remp_oauth_init' );
 
 // wrapper function to init Remp_Request class
 function remp_request( $request ){
+	
+	$error = new WP_Error();
+	
+	if ( ! isset( $request['id'] ) || empty( $request['id'] ) || $request['id'] === null ){
+		$request['id'] = 'No Request ID';
+		$error->add( 'remp', 'REST Importer: ' . $request['id'] );
+	}
 
 	// skip request if no output
-	if ( ! isset( $request['output_method'] ) || empty( $request['output_method'] ) || $request['output_method'] === null ) return false;
+	if ( ! isset( $request['output_method'] ) || empty( $request['output_method'] ) || $request['output_method'] === null ){
+		$error->add( 'remp', 'REST Importer: No output method for: ' . $request['id']  );
+	}
+	
+	// get source
+	$sources = remp_get_option( 'sources', false );
+	if ( $sources && isset( $request['source'] ) ){
+		foreach( $sources as $source ){
+			if ( $source['id'] == $request['source']) 
+				break;
+		}
+	} else {
+		$error->add( 'remp', 'REST Importer: No sources for: ' . $request['id']  );
+	}
+	
+	// get value_map
+	$value_maps = remp_get_option( 'value_map', false );
+	if ( isset( $request['value_map'] ) && $value_maps ){
+		foreach( $value_maps as $value_map ){
+			if ( $value_map['id'] == $request['value_map']) 
+				break;
+		}
+	} else {
+		$value_map = false;
+		if ( in_array('save', $request['output_method']) ){
+			$error->add( 'remp', 'REST Importer: Value Map is required if you want to save the response. Request: ' . $request['id']  );
+		}
+	}
+	
+	// if errors ...
+	if ( count( $error->get_error_messages() ) > 0 ){
+		new Remp_Admin_Notice( $error->get_error_messages(), true , true );
+		return false;
+	}
 
 	// params to key val
 	$params = array();
@@ -1371,26 +1393,6 @@ function remp_request( $request ){
 			}
 		}
 	}
-	
-	// get source
-	$sources = remp_get_option( 'sources', null );
-	foreach( $sources as $source ){
-		if ( $source['id'] == $request['source']) 
-			break;
-	}
-	
-	
-	// get value_map
-	$value_maps = remp_get_option( 'value_map', false );
-	if ( $value_maps ){
-		foreach( $value_maps as $value_map ){
-			if ( $value_map['id'] == $request['value_map']) 
-				break;
-		}
-	} else {
-		$value_map = false;
-	}
-	
 	
 	// run
 	$args = array(
@@ -1537,87 +1539,23 @@ add_action( 'cmb2_render_clearfix', 'cmb2_clearfix_render_callback', 10, 5 );
 ?>
 <?php
 /*
-	grunt.concat_in_order.declare('cmb2_field_type_exp_respond');
-	grunt.concat_in_order.require('init');
-*/
-
-function cmb2_exp_respond_render_callback( $field, $escaped_value, $object_id, $object_type, $field_type_object ) {
-// function cmb2_exp_respond_render_callback( ) {
-	
-	echo $field_type_object->_desc( true );
-	
-	echo '<br>';
-	
-	$arr = array(
-		'results' => array(
-			'lovely_people' => array(
-					0 => array(
-						'name' => 'Aila Starmanova',
-	
-						'children' => array(
-							0 => array(
-								'name' => 'Treebeard Perez',
-	
-							),
-							1 => array(
-								'name' => 'Staninslav Abdul-Basir Haddad',
-	
-							),
-							2 => array(
-								'name' => 'Fernanda Larsen',
-	
-							),
-						),
-					),
-					1 => array(
-						'name' => 'Surendranath Morrison',
-						'children' => array(
-							0 => array(
-								'name' => 'Nico Hill',
-	
-							),
-							1 => array(
-								'name' => 'Lete Yue Hsu',
-	
-							),
-						),
-					),
-				),
-			),
-		);
-	
-	print('<pre style="font-size:small;">');
-	print_r($arr);
-	print('</pre>');
-	
-	
-	
-	echo '<br class="clearfix">';
-}
-add_action( 'cmb2_render_exp_respond', 'cmb2_exp_respond_render_callback', 10, 5 );
-// add_action( 'admin_notices', 'cmb2_exp_respond_render_callback' );
-
-
-?>
-<?php
-/*
 	grunt.concat_in_order.declare('cmb2_field_type_info');
 	grunt.concat_in_order.require('init');
 */
 
 function cmb2_info_render_callback( $field, $escaped_value, $object_id, $object_type, $field_type_object ) {
 	
-	// $info = $field_type_object->field->args( 'description' );
-	$info = array_key_exists('info', $field_type_object->field->args( 'attributes' ) ) ?  $field_type_object->field->args( 'attributes' )['info'] : false;
+	$info = $field_type_object->field->args( 'info' );
+	
 	$paragraph = array_key_exists('paragraph', $field_type_object->field->args( 'attributes' ) ) ?  $field_type_object->field->args( 'attributes' )['paragraph'] : false;
-	
 	$tag = $paragraph ? 'p' : 'span';
-	$info = strlen($info) > 0 ? sprintf( "\n" . '<%1$s class="cmb2-metabox-info">%2$s</%1$s>' . "\n", $tag, $info ) : '';
 	
-	echo $info;
+	echo !empty($info) ? sprintf( "\n" . '<%1$s class="cmb2-metabox-info">%2$s</%1$s>' . "\n", $tag, $info ) : '';
 	
-	// hidden filed. nonsence, just to set data-conditional
-	echo $field_type_object->input( array( 'type' => 'hidden' ) );
+	// hidden field. nonsence, just to set data-conditional
+	echo $field_type_object->input( array(
+		'type' => 'hidden',
+		) );
 	
 	// no need to echo desc, the hidden input does it already
 	// echo $field_type_object->_desc( false );
@@ -2088,28 +2026,17 @@ function remp_get_valid_option_keys( $object_type = null, $markup = false ){
 
 	}
 	
-	
-			
 	if ( $markup && $valids ) {
-		
-$return .= '<ul>';
+		$return .= '<ul>';
 		foreach( $valids as $valid ){
-
-
-			
-$return .= '<li>' . $valid . '</li>';
+			$return .= '<li>' . $valid . '</li>';
 		}
-
-		
-$return .= '</ul>';
+		$return .= '</ul>';
 	} else {
-
 		$return = $valids;
 	}
 	
-	
 	return $return;
-	
 	
 }
 
@@ -2169,7 +2096,6 @@ Class Remp_Import_post extends Remp_Import {
 		parent::__construct( $response_body_arr, $args );
 	}
 	
-	
 	protected function set_object_defaults( $args ){
 		$this->object_defaults = array(
 			'post_author'	=> 1,	// if your admin found a way to a new user_id, please kindly filter this array in parent method
@@ -2177,6 +2103,7 @@ Class Remp_Import_post extends Remp_Import {
 			'post_status'	=> $args['value_map']['post_status'],
 			'post_title'	=> array_key_exists( 'post_title', $args['value_map'] ) ? $args['value_map']['post_title'] : '',
 		);
+		
 		// filter
 		parent::set_object_defaults( $args );
 	}
@@ -2184,7 +2111,16 @@ Class Remp_Import_post extends Remp_Import {
 	
 	protected function insert_object( $obj ){
 
-		$this->obj_data = wp_parse_args( $this->obj_data, $this->object_defaults );
+		// skip keys if not valid
+		$valids = remp_get_valid_option_keys( 'post' );
+		$obj_data = $this->obj_data;
+		foreach ( $obj_data as $key => $val ){
+			if ( ! in_array( $key, $valids ) ){
+				unset( $obj_data[$key] );
+			}
+		}
+		
+		$this->obj_data = wp_parse_args( $obj_data, $this->object_defaults );
 		$this->obj_meta = wp_parse_args( $this->obj_meta, $this->object_meta_defaults );
 		
 		$new_post_id = wp_insert_post( $this->obj_data, true );
@@ -2229,8 +2165,17 @@ Class Remp_Import_user extends Remp_Import {
 	
 	
 	protected function insert_object( $obj ){
+		
+		// skip keys if not valid
+		$valids = remp_get_valid_option_keys( 'user' );
+		$obj_data = $this->obj_data;
+		foreach ( $obj_data as $key => $val ){
+			if ( ! in_array( $key, $valids ) ){
+				unset( $obj_data[$key] );
+			}
+		}
 
-		$this->obj_data = wp_parse_args( $this->obj_data, $this->object_defaults );
+		$this->obj_data = wp_parse_args( $obj_data, $this->object_defaults );
 		$this->obj_meta = wp_parse_args( $this->obj_meta, $this->object_meta_defaults );
 		
 		// is email set 
@@ -2492,7 +2437,7 @@ Class Remp_Request_oauth1_one_leg extends Remp_Request {
 		if (! isset( $consumer_key ) ) $error->add( 'remp', 'No consumer key is set!' );
 		if (! isset( $consumer_secret ) ) $error->add( 'remp', 'No consumer secret is set!' );
 		if ( count( $error->get_error_messages() ) > 0 ){
-			new Remp_Admin_Notice( $error->get_error_messages(), true );
+			new Remp_Admin_Notice( $error->get_error_messages(), true , true );
 			return false;
 		}
 		
