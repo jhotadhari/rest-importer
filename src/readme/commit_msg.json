@@ -1,6 +1,4 @@
 {
-  "1": "fix: fatal error on Request save and no sources existing;",
-  "2": "fix: the tree input works now for repeatable groups;",
-  "3": "some examples removed, moved to the wiki;",
-  "4": "Remp_Import_{}::insert_object: skip object keys if not valid;"
+  "1": "fix: climb the tree and save the value if key is 0!",
+  "2": "added: some filters and hook"
 }

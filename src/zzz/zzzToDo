@@ -5,3 +5,21 @@ add hooks and filters
 
 
 handle error, mjamm
+
+
+
+mapping tag
+	ui for fixed custom meta or object data ... (will replace the post_tile)
+		-> so its easy to find (and delete) all imported stuff again
+
+
+
+
+___wiki
+
+filters
+
+
+hooks
+
+

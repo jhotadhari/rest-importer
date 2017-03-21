@@ -782,16 +782,16 @@ class Remp_Admin_Options {
 		
 		
 		$cmb->add_field( array(
-			'name' => __( 'Delete Settings and cron log', 'remp' ),
+			'name' => __( 'Delete Settings and log', 'remp' ),
 			'id'   => 'deact_delete',
 			'description'   =>
-				__( 'Do you want to delete the REST Importer settings and cron log on plugin deactivation?', 'remp' ) . '<br>' . 
+				__( 'Do you want to delete the REST Importer settings and log on plugin deactivation?', 'remp' ) . '<br>' . 
 				__( 'This will not delete the imported Posts and Users.', 'remp' ),
 			'type' => 'radio',
 			'default' => 'no',
 			'options' => array( 
 				'no'			=> __( 'No, remember everything for next time.', 'remp' ),
-				'del_all'   => __( 'Delete all Settings and cron log.', 'remp' ),
+				'del_all'   => __( 'Delete all Settings and log.', 'remp' ),
 			),
 		) );		
 		

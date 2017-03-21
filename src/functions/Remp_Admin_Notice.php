@@ -23,7 +23,7 @@ Class Remp_Admin_Notice {
 		$tag_open = '<p ' . $style . '>';
 		$tag_close = '</p>';
 			
-		if( gettype( $notice ) == 'string' ){
+		if( gettype( $notice ) == 'string' || is_numeric( $notice ) ){
 			$admin_notice = $tag_open . $notice . $tag_close;
 		} elseif ( gettype( $notice ) == 'array' ){
 

@@ -18,6 +18,9 @@
 !/src
 !src/**/*
 
+# include dir wiki/images subdirs
+!wiki/images**/*
+
 # include dir dist/trunk
 !/dist
 /dist/*

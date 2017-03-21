@@ -1,3 +1,7 @@
+= 0.1.3 =
+fix: climb the tree and save the value if key is 0!
+added: some filters and hook
+
 = 0.1.2 =
 fix: fatal error on Request save and no sources existing;
 fix: the tree input works now for repeatable groups;

@@ -25,10 +25,11 @@ Class Remp_Import_post extends Remp_Import {
 	}
 	
 	
-	protected function insert_object( $obj ){
+	protected function  insert_object( $obj ){
 
 		// skip keys if not valid
-		$valids = remp_get_valid_option_keys( 'post' );
+		$valids = remp_get_valid_option_keys( 'post' );
+
 		$obj_data = $this->obj_data;
 		foreach ( $obj_data as $key => $val ){
 			if ( ! in_array( $key, $valids ) ){
@@ -36,16 +37,25 @@ Class Remp_Import_post extends Remp_Import {
 			}
 		}
 		
-		$this->obj_data = wp_parse_args( $obj_data, $this->object_defaults );
-		$this->obj_meta = wp_parse_args( $this->obj_meta, $this->object_meta_defaults );
+		// get the object data
+		// filter: example: set an ID, to overwride an existing post
+		$this->obj_data = apply_filters( "remp_insert_{$this->request_id}_obj_data", wp_parse_args( $obj_data, $this->object_defaults ), $this->request_id, $obj );
 		
-		$new_post_id = wp_insert_post( $this->obj_data, true );
-		
+		// get the object meta
+		// filter: example: do some magic juggling with the meta
+		$this->obj_meta = apply_filters( "remp_insert_{$this->request_id}_obj_meta", wp_parse_args( $this->obj_meta, $this->object_meta_defaults ), $this->request_id, $obj );
+
+		// create (or update if ID is passed) post
+		$post_id = wp_insert_post( $this->obj_data, true );
+
 		// Loop through meta and save
 		foreach ( $this->obj_meta as $key => $value ) {
-			update_post_meta( $new_post_id, $key, $value );
+			update_post_meta( $post_id, $key, $value );
 		}
-
+		
+		// do something special
+		do_action( "remp_insert_{$this->request_id}_finished", $this->request_id, $obj, $post_id, $this->obj_data, $this->obj_meta );
+		
 	}
 	
 }

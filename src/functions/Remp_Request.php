@@ -29,6 +29,7 @@ Class Remp_Request {
 		// filter the params. useful for cron jobs
 		$args['params'] = apply_filters( "remp_request_{$args['id']}_params", $args['params'], $args, $last_requests, $last_request_time );
 		
+		
 		// set request_url
 		$this->set_request_url( $args['source'], $args['params'] );
 		
@@ -63,7 +64,7 @@ Class Remp_Request {
 		
 		// save request to log
 		$entry = apply_filters( "remp_log_entry_{$args['id']}", array(), $args );	// eg: add the parameter to the log
-		$log_max = apply_filters( 'remp_log_max', 5 );
+		$log_max = apply_filters( "remp_log_max_{$args['id']}", 5 );
 		if ( array_key_exists( $args['id'], $remp_log ) ) {
 			// add log
 			$remp_log[$args['id']][time()] = $entry;

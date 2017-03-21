@@ -37,8 +37,8 @@ Class Remp_Import_user extends Remp_Import {
 			}
 		}
 
-		$this->obj_data = wp_parse_args( $obj_data, $this->object_defaults );
-		$this->obj_meta = wp_parse_args( $this->obj_meta, $this->object_meta_defaults );
+		$this->obj_data = apply_filters( "remp_insert_{$this->request_id}_obj_data", wp_parse_args( $obj_data, $this->object_defaults ), $this->request_id, $obj );
+		$this->obj_meta = apply_filters( "remp_insert_{$this->request_id}_obj_meta", wp_parse_args( $this->obj_meta, $this->object_meta_defaults ), $this->request_id, $obj );
 		
 		// is email set 
 		if ( empty( $this->obj_data['user_email'] ) ){
@@ -85,7 +85,7 @@ Class Remp_Import_user extends Remp_Import {
 		// create, merge or skip
 		if ( count( $user_exists ) == 0 ) {
 		// user doesn't exist
-			$user_id = $this->insert_user();
+			$user_id = $this->insert_user( $obj );
 			if ( is_wp_error( $user_id ) ) {
 				// ??? error handler
 				return false;
@@ -108,7 +108,7 @@ Class Remp_Import_user extends Remp_Import {
 					// user_email exists	user_login doesn't exist
 						new Remp_Admin_Notice( 'user_email exists	user_login doesnt exist' );		// ??? debug only
 
-						$user_id = $this->merge_existing_user( get_user_by( 'ID',  $user_exists['user_email'] ) );
+						$user_id = $this->merge_existing_user( get_user_by( 'ID',  $user_exists['user_email'] ), $obj );
 						if ( is_wp_error( $user_id ) ) {
 							// ??? error handler
 							new Remp_Admin_Notice( $user_id->get_error_messages(), true );		// ??? debug only
@@ -126,7 +126,7 @@ Class Remp_Import_user extends Remp_Import {
 					// user_login exists	user_email doesn't exist
 						new Remp_Admin_Notice( 'user_login exists	user_email doesnt exist' );		// ??? debug only
 
-						$user_id = $this->merge_existing_user(  get_user_by( 'ID',  $user_exists['user_login'] ) );
+						$user_id = $this->merge_existing_user(  get_user_by( 'ID',  $user_exists['user_login'] ), $obj );
 						if ( is_wp_error( $user_id ) ) {
 							// ??? error handler
 							new Remp_Admin_Notice( $user_id->get_error_messages(), true );		// ??? debug only
@@ -146,7 +146,7 @@ Class Remp_Import_user extends Remp_Import {
 					// user_login user_email belong to same existing user
 						new Remp_Admin_Notice( 'user_login user_email belong to same existing user' );		// ??? debug only
 
-						$user_id = $this->merge_existing_user(  get_user_by( 'ID',  $user_exists['user_login'] ) );
+						$user_id = $this->merge_existing_user(  get_user_by( 'ID',  $user_exists['user_login'] ), $obj );
 						if ( is_wp_error( $user_id ) ) {
 							// ??? error handler
 							new Remp_Admin_Notice( $user_id->get_error_messages(), true );		// ??? debug only
@@ -199,7 +199,7 @@ Class Remp_Import_user extends Remp_Import {
 	}
 	
 	
-	protected function insert_user( $user_id = null ){
+	protected function insert_user( $obj ){
 	
 		// create/update user
 		$user_id = wp_insert_user( $this->obj_data ) ;
@@ -211,18 +211,19 @@ Class Remp_Import_user extends Remp_Import {
 			}
 		}
 		
+		// hook
+		$this->insert_finished( $obj, $user_id );
 		// return id or error
 		return $user_id;
 		
 	}
 	
 	
-	protected function merge_existing_user( $user ){
+	protected function merge_existing_user( $user, $obj ){
 
 		if ( $this->opt_user_exists == 'merge_overwride' ) {
 			$this->obj_data['ID'] = $user->ID;
-			$user_id = $this->insert_user();
-			return $user_id;
+			$user_id = $this->insert_user( $obj );
 		}
 		
 		
@@ -261,10 +262,17 @@ Class Remp_Import_user extends Remp_Import {
 				}
 			
 			}
-			
-			return $user_id;
 		}
+	
+		// hook
+		$this->insert_finished( $obj, $user_id );
+		return $user_id;
 		
+	}
+	
+	protected function insert_finished( $obj, $user_id ){
+		// do something special
+		do_action( "remp_insert_{$this->request_id}_finished", $this->request_id, $obj, $user_id, $this->obj_data, $this->obj_meta );
 	}
 		
 	

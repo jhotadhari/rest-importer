@@ -50,7 +50,7 @@ Class Remp_Admin_Notice {
 		$tag_open = '<p ' . $style . '>';
 		$tag_close = '</p>';
 			
-		if( gettype( $notice ) == 'string' ){
+		if( gettype( $notice ) == 'string' || is_numeric( $notice ) ){
 			$admin_notice = $tag_open . $notice . $tag_close;
 		} elseif ( gettype( $notice ) == 'array' ){
 
@@ -870,16 +870,16 @@ class Remp_Admin_Options {
 		
 		
 		$cmb->add_field( array(
-			'name' => __( 'Delete Settings and cron log', 'remp' ),
+			'name' => __( 'Delete Settings and log', 'remp' ),
 			'id'   => 'deact_delete',
 			'description'   =>
-				__( 'Do you want to delete the REST Importer settings and cron log on plugin deactivation?', 'remp' ) . '<br>' . 
+				__( 'Do you want to delete the REST Importer settings and log on plugin deactivation?', 'remp' ) . '<br>' . 
 				__( 'This will not delete the imported Posts and Users.', 'remp' ),
 			'type' => 'radio',
 			'default' => 'no',
 			'options' => array( 
 				'no'			=> __( 'No, remember everything for next time.', 'remp' ),
-				'del_all'   => __( 'Delete all Settings and cron log.', 'remp' ),
+				'del_all'   => __( 'Delete all Settings and log.', 'remp' ),
 			),
 		) );		
 		
@@ -1194,6 +1194,7 @@ Class Remp_Import {
 	protected $obj_meta = array();
 	protected $object_defaults = array();
 	protected $object_meta_defaults = array();
+	protected $request_id = '';
 
 	function __construct( $response_body_arr = null, $args ) {
 		if ( $response_body_arr === null ) return false;
@@ -1205,9 +1206,10 @@ Class Remp_Import {
 			// 'source' => array(),
 			'output_method' => array(),
 			'value_map' => array(),
-			// 'mail' => array(),
 			// 'params' => array(),
 		) );
+		
+		$this->request_id = $args['id'];
 		
 		// decode map tree to array and skip some jstree markup
 		$this->set_map_tree( $args['value_map']['map_tree'] );
@@ -1230,8 +1232,7 @@ Class Remp_Import {
 			$this->obj_data = array();
 			$this->obj_meta = array();
 			// assign response nodes to obj data
-			$this->climb_map_tree( $this->map_tree, $obj );			
-			
+			$this->climb_map_tree( $this->map_tree, $obj );		
 			// insert object
 			$this->insert_object( $obj );
 		}
@@ -1259,24 +1260,31 @@ Class Remp_Import {
 	protected function climb_map_tree( $map_tree, $obj ){
 		foreach ( $map_tree as $branch ){
 			
-			if ( !empty( $branch['data']['table'] ) && !empty( $branch['data']['key'] ) && !empty( $branch['text'] ) ){
-				if ( $branch['data']['table'] == 'object' ){
-					// if node value exists in response, save as post data
-					// if ( array_key_exists( $branch['text'], $obj) ) {
-					if ( !empty( $obj[$branch['text']] ) ) {
+			// check if node has text and both columns have entries
+			if ( !empty( $branch['data']['table'] ) && ( isset( $branch['data']['key'] ) && strlen( $branch['data']['key'] ) > 0 ) && ( isset( $branch['text'] ) && strlen($branch['text']) > 0 ) ){
+				
+				// check if node text exists as key in response
+				if ( isset( $obj[$branch['text']] ) && (														// exists?
+						( gettype($obj[$branch['text']]) === 'string' && strlen( $obj[$branch['text']] ) > 0 )	// if string, it needs some length
+						|| ( is_numeric($obj[$branch['text']]) )												// if numeric ... IT'S OK To BE 0!
+						|| ( gettype($obj[$branch['text']]) === 'array' && count( $obj[$branch['text']] ) > 0 )	// if array, it shouldn't be empty
+					)) {
+
+					if ( $branch['data']['table'] == 'object' ){
+						// save as object data
 						$this->obj_data[$branch['data']['key']] = $obj[$branch['text']];
-					}
-				} elseif ( $branch['data']['table'] == 'object-meta' ){
-					// if node value exists in response, save as post meta
-					// if ( array_key_exists( $branch['text'], $obj) ) {
-					if ( !empty( $obj[$branch['text']] ) ) {
+					} elseif ( $branch['data']['table'] == 'object-meta' ) {
+						// save as meta
 						$this->obj_meta[$branch['data']['key']] = $obj[$branch['text']];
 					}
+
+					
 				}
+				
 			}
 			
 			// climb down
-			if ( !empty( $branch['text'] ) && array_key_exists( 'children', $branch ) && count($branch['children']) > 0 ){
+			if ( ( isset( $branch['text'] ) && strlen($branch['text']) > 0 ) && array_key_exists( 'children', $branch ) && count($branch['children']) > 0 ){
 				$this->climb_map_tree( $branch['children'], $obj[$branch['text']] );
 
 			}
@@ -1286,24 +1294,27 @@ Class Remp_Import {
 	
 	
 	protected function set_object_defaults( $args ){
-		//	??? change filter name ! with variables
-		$this->object_defaults = apply_filters('remp_import_obj_defaults', ( $this->object_defaults ? $this->object_defaults : array() ) );
+		// all may be done in inherited class method
+		// this method should be called when method in inherited class is finsihed
+		
+		$this->object_defaults = apply_filters( "remp_import_obj_defaults", ( $this->object_defaults ? $this->object_defaults : array() ), $this->request_id );
+		$this->object_defaults = apply_filters( "remp_import_obj_defaults_{$this->request_id}", $this->object_defaults, $this->request_id );
 	}
 	
-	
 	protected function set_object_meta_defaults( $args ){
-		//	??? change filter name ! with variables
-		$this->object_meta_defaults = apply_filters('remp_import_obj_meta_defaults', ( $this->object_meta_defaults ? $this->object_meta_defaults : array() ) );
+		// all may be done in inherited class method
+		// this method should be called when method in inherited class is finsihed
+		
+		$this->object_meta_defaults = apply_filters( "remp_import_obj_meta_defaults", ( $this->object_meta_defaults ? $this->object_meta_defaults : array() ), $this->request_id );
+		$this->object_meta_defaults = apply_filters( "remp_import_obj_meta_defaults_{$this->request_id}", $this->object_meta_defaults, $this->request_id );
 	}		
 	
 	protected function something_with_args( $args ){
 		//	hey inherited class, overwride me if you need some args
 	}		
 	
-	
-		
 	protected function insert_object( $obj ){
-		// silence ... 
+		//	hey inherited class, please do something here
 	}
 	
 }
@@ -1440,6 +1451,7 @@ Class Remp_Request {
 		// filter the params. useful for cron jobs
 		$args['params'] = apply_filters( "remp_request_{$args['id']}_params", $args['params'], $args, $last_requests, $last_request_time );
 		
+		
 		// set request_url
 		$this->set_request_url( $args['source'], $args['params'] );
 		
@@ -1474,7 +1486,7 @@ Class Remp_Request {
 		
 		// save request to log
 		$entry = apply_filters( "remp_log_entry_{$args['id']}", array(), $args );	// eg: add the parameter to the log
-		$log_max = apply_filters( 'remp_log_max', 5 );
+		$log_max = apply_filters( "remp_log_max_{$args['id']}", 5 );
 		if ( array_key_exists( $args['id'], $remp_log ) ) {
 			// add log
 			$remp_log[$args['id']][time()] = $entry;
@@ -2109,10 +2121,11 @@ Class Remp_Import_post extends Remp_Import {
 	}
 	
 	
-	protected function insert_object( $obj ){
+	protected function  insert_object( $obj ){
 
 		// skip keys if not valid
-		$valids = remp_get_valid_option_keys( 'post' );
+		$valids = remp_get_valid_option_keys( 'post' );
+
 		$obj_data = $this->obj_data;
 		foreach ( $obj_data as $key => $val ){
 			if ( ! in_array( $key, $valids ) ){
@@ -2120,16 +2133,25 @@ Class Remp_Import_post extends Remp_Import {
 			}
 		}
 		
-		$this->obj_data = wp_parse_args( $obj_data, $this->object_defaults );
-		$this->obj_meta = wp_parse_args( $this->obj_meta, $this->object_meta_defaults );
+		// get the object data
+		// filter: example: set an ID, to overwride an existing post
+		$this->obj_data = apply_filters( "remp_insert_{$this->request_id}_obj_data", wp_parse_args( $obj_data, $this->object_defaults ), $this->request_id, $obj );
 		
-		$new_post_id = wp_insert_post( $this->obj_data, true );
-		
+		// get the object meta
+		// filter: example: do some magic juggling with the meta
+		$this->obj_meta = apply_filters( "remp_insert_{$this->request_id}_obj_meta", wp_parse_args( $this->obj_meta, $this->object_meta_defaults ), $this->request_id, $obj );
+
+		// create (or update if ID is passed) post
+		$post_id = wp_insert_post( $this->obj_data, true );
+
 		// Loop through meta and save
 		foreach ( $this->obj_meta as $key => $value ) {
-			update_post_meta( $new_post_id, $key, $value );
+			update_post_meta( $post_id, $key, $value );
 		}
-
+		
+		// do something special
+		do_action( "remp_insert_{$this->request_id}_finished", $this->request_id, $obj, $post_id, $this->obj_data, $this->obj_meta );
+		
 	}
 	
 }
@@ -2175,8 +2197,8 @@ Class Remp_Import_user extends Remp_Import {
 			}
 		}
 
-		$this->obj_data = wp_parse_args( $obj_data, $this->object_defaults );
-		$this->obj_meta = wp_parse_args( $this->obj_meta, $this->object_meta_defaults );
+		$this->obj_data = apply_filters( "remp_insert_{$this->request_id}_obj_data", wp_parse_args( $obj_data, $this->object_defaults ), $this->request_id, $obj );
+		$this->obj_meta = apply_filters( "remp_insert_{$this->request_id}_obj_meta", wp_parse_args( $this->obj_meta, $this->object_meta_defaults ), $this->request_id, $obj );
 		
 		// is email set 
 		if ( empty( $this->obj_data['user_email'] ) ){
@@ -2223,7 +2245,7 @@ Class Remp_Import_user extends Remp_Import {
 		// create, merge or skip
 		if ( count( $user_exists ) == 0 ) {
 		// user doesn't exist
-			$user_id = $this->insert_user();
+			$user_id = $this->insert_user( $obj );
 			if ( is_wp_error( $user_id ) ) {
 				// ??? error handler
 				return false;
@@ -2246,7 +2268,7 @@ Class Remp_Import_user extends Remp_Import {
 					// user_email exists	user_login doesn't exist
 						new Remp_Admin_Notice( 'user_email exists	user_login doesnt exist' );		// ??? debug only
 
-						$user_id = $this->merge_existing_user( get_user_by( 'ID',  $user_exists['user_email'] ) );
+						$user_id = $this->merge_existing_user( get_user_by( 'ID',  $user_exists['user_email'] ), $obj );
 						if ( is_wp_error( $user_id ) ) {
 							// ??? error handler
 							new Remp_Admin_Notice( $user_id->get_error_messages(), true );		// ??? debug only
@@ -2264,7 +2286,7 @@ Class Remp_Import_user extends Remp_Import {
 					// user_login exists	user_email doesn't exist
 						new Remp_Admin_Notice( 'user_login exists	user_email doesnt exist' );		// ??? debug only
 
-						$user_id = $this->merge_existing_user(  get_user_by( 'ID',  $user_exists['user_login'] ) );
+						$user_id = $this->merge_existing_user(  get_user_by( 'ID',  $user_exists['user_login'] ), $obj );
 						if ( is_wp_error( $user_id ) ) {
 							// ??? error handler
 							new Remp_Admin_Notice( $user_id->get_error_messages(), true );		// ??? debug only
@@ -2284,7 +2306,7 @@ Class Remp_Import_user extends Remp_Import {
 					// user_login user_email belong to same existing user
 						new Remp_Admin_Notice( 'user_login user_email belong to same existing user' );		// ??? debug only
 
-						$user_id = $this->merge_existing_user(  get_user_by( 'ID',  $user_exists['user_login'] ) );
+						$user_id = $this->merge_existing_user(  get_user_by( 'ID',  $user_exists['user_login'] ), $obj );
 						if ( is_wp_error( $user_id ) ) {
 							// ??? error handler
 							new Remp_Admin_Notice( $user_id->get_error_messages(), true );		// ??? debug only
@@ -2337,7 +2359,7 @@ Class Remp_Import_user extends Remp_Import {
 	}
 	
 	
-	protected function insert_user( $user_id = null ){
+	protected function insert_user( $obj ){
 	
 		// create/update user
 		$user_id = wp_insert_user( $this->obj_data ) ;
@@ -2349,18 +2371,19 @@ Class Remp_Import_user extends Remp_Import {
 			}
 		}
 		
+		// hook
+		$this->insert_finished( $obj, $user_id );
 		// return id or error
 		return $user_id;
 		
 	}
 	
 	
-	protected function merge_existing_user( $user ){
+	protected function merge_existing_user( $user, $obj ){
 
 		if ( $this->opt_user_exists == 'merge_overwride' ) {
 			$this->obj_data['ID'] = $user->ID;
-			$user_id = $this->insert_user();
-			return $user_id;
+			$user_id = $this->insert_user( $obj );
 		}
 		
 		
@@ -2399,10 +2422,17 @@ Class Remp_Import_user extends Remp_Import {
 				}
 			
 			}
-			
-			return $user_id;
 		}
+	
+		// hook
+		$this->insert_finished( $obj, $user_id );
+		return $user_id;
 		
+	}
+	
+	protected function insert_finished( $obj, $user_id ){
+		// do something special
+		do_action( "remp_insert_{$this->request_id}_finished", $this->request_id, $obj, $user_id, $this->obj_data, $this->obj_meta );
 	}
 		
 	
