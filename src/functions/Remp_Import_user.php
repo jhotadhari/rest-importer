@@ -171,12 +171,12 @@ Class Remp_Import_user extends Remp_Import {
 		
 		
 		if ( $skip ){
-			new Remp_Admin_Notice( $user_exists_msg , true );
+			new Remp_Admin_Notice( $user_exists_msg , true, false );
 			return false;
 		}
 		
 		// ??? debug
-		new Remp_Admin_Notice( 'something went wrong' , true );	// this msg should never appear
+		new Remp_Admin_Notice( 'something went wrong' , true, true );	// this msg should never appear
 		
 	}
 	
@@ -224,6 +224,7 @@ Class Remp_Import_user extends Remp_Import {
 		if ( $this->opt_user_exists == 'merge_overwride' ) {
 			$this->obj_data['ID'] = $user->ID;
 			$user_id = $this->insert_user( $obj );
+			return $user_id;
 		}
 		
 		
@@ -232,21 +233,23 @@ Class Remp_Import_user extends Remp_Import {
 			$user_id = $user->ID;
 			$user_login = $user->get('user_login');
 			
+			
+			$userdata = array(
+				'ID' => $user_id,
+				'user_login' => $user_login,
+			);
+			
 			foreach ( $this->obj_data as $new_k => $new_v ){
-			
 				if ( empty( $user->get($new_k) ) ) {
-					$result = wp_insert_user( array(
-						'ID' => $user_id,
-						'user_login' => $user_login,
-						$new_k => $new_v,
-					));
-					if ( is_wp_error( $result ) ) {
-						// ??? error handler
-						// return false;	// no proceed
-					}
-					
+					$userdata[$new_k] = $new_v;
+				} else {
+					$userdata[$new_k] = $user->get($new_k);
 				}
+			}                                      
 			
+			$result = wp_insert_user( $userdata );
+			if ( is_wp_error( $result ) ) {
+				// ??? error handler
 			}
 			
 			foreach ( $this->obj_meta as $new_k => $new_v ){
@@ -256,7 +259,6 @@ Class Remp_Import_user extends Remp_Import {
 					$result = update_user_meta( $user_id, $new_k, $new_v );
 					if ( ! $result ) {
 						// ??? error handler
-						// return false;	// no proceed
 					}
 					
 				}

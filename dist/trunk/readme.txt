@@ -75,6 +75,9 @@ This Plugin is still in early development. Reality might be in movement.
 
 == Changelog ==
 
+= 0.1.4 =
+import user: merge_carefully, existing fields where set to null;
+
 = 0.1.3 =
 fix: climb the tree and save the value if key is 0!
 added: some filters and hook

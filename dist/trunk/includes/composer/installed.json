@@ -126,12 +126,12 @@
         "version_normalized": "2.2.4.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/WebDevStudios/CMB2.git",
+            "url": "https://github.com/CMB2/CMB2.git",
             "reference": "badecc7f908781ac14b879c74526f9d055f4a41e"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/WebDevStudios/CMB2/zipball/badecc7f908781ac14b879c74526f9d055f4a41e",
+            "url": "https://api.github.com/repos/CMB2/CMB2/zipball/badecc7f908781ac14b879c74526f9d055f4a41e",
             "reference": "badecc7f908781ac14b879c74526f9d055f4a41e",
             "shasum": ""
         },

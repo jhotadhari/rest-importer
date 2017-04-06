@@ -1,4 +1,4 @@
 {
-  "1": "fix: climb the tree and save the value if key is 0!",
-  "2": "added: some filters and hook"
+  "fix": "import user: when merge rude: insert_finished was called two times;",
+  "fix": "import user: merge_carefully, existing fields where set to null;"
 }
