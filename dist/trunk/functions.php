@@ -1879,8 +1879,6 @@ return $found;
 }	
 
 ?>
-
-
 <?php
 /*
 	grunt.concat_in_order.declare('remp_array_key_search');
@@ -1905,8 +1903,6 @@ function remp_array_key_search( $needle, $haystack, $recursive = true ) {
 
 
 ?>
-
-
 <?php
 /*
 	grunt.concat_in_order.declare('remp_get_post_types');

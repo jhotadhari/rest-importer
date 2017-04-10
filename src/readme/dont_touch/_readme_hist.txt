@@ -1,3 +1,6 @@
+= 0.1.5 =
+fix: some lost whitespaces between opening and closing php tags.
+
 = 0.1.4 =
 import user: merge_carefully, existing fields where set to null;
 

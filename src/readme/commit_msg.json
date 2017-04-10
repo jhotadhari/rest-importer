@@ -1,4 +1,3 @@
 {
-  "fix": "import user: when merge rude: insert_finished was called two times;",
-  "fix": "import user: merge_carefully, existing fields where set to null;"
+  "1": "fix: some lost whitespaces between opening and closing php tags."
 }
