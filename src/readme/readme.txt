@@ -2,6 +2,9 @@
 
 == Description ==
 
+> ## Deprecated
+> This project is no longer active and not recommended for use.
+
 Access remote data via REST and save it as WordPress Posts or Users.
 
 UI to customize the import. Shape any kind of json response to fit your desired structure and field names.
@@ -12,9 +15,9 @@ UI to customize the import. Shape any kind of json response to fit your desired 
 
 = How to use =
 
-* Make a backup of your database! In case you import to much trash to wrong places and assign the values to wrong fields. 
-* Install REST Importer and go to "Tools" -> "REST Importer" -> "Sources", add a source and save. 
-* Switch to tab "Requests & Import", add a request, choose the source, select "Print as admin notice" and push the "Request/Import" button. On success, you'll see the response as some kind of tree structure. 
+* Make a backup of your database! In case you import to much trash to wrong places and assign the values to wrong fields.
+* Install REST Importer and go to "Tools" -> "REST Importer" -> "Sources", add a source and save.
+* Switch to tab "Requests & Import", add a request, choose the source, select "Print as admin notice" and push the "Request/Import" button. On success, you'll see the response as some kind of tree structure.
 * Switch to tab "Value Mapping" add a "Map" and customize the way the data gets imported. Rebuild the the response structure and assign the nodes to post/user options and meta-options.
 * Switch to tab "Requests & Import", edit the request and select "Save response".
 
@@ -25,9 +28,9 @@ UI to customize the import. Shape any kind of json response to fit your desired 
 
 
 = Coming soon =
-* More filter and hooks 
-* Wiki and documentation 
-* More authorisation types 
+* More filter and hooks
+* Wiki and documentation
+* More authorisation types
 
 
 = Thanks for beautiful ressoucres =
@@ -50,7 +53,7 @@ Good to know:
 * cURL
 * JavaScript needs to be enabled for the settings page (if all settings are done, you may disable js again)
 
-Upload and install this Plugin the same way you'd install any other plugin. 
+Upload and install this Plugin the same way you'd install any other plugin.
 Go to "Tools" -> "REST Importer".
 
 == Screenshots ==

@@ -1,3 +1,6 @@
+> ## Deprecated
+> This project is no longer active and not recommended for use.
+
 WordPress Plugin
 
 REST Importer
